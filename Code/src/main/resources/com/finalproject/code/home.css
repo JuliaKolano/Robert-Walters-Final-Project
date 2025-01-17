@@ -1,0 +1,50 @@
+.main-content {
+    -fx-background-color: #272b2b;
+}
+
+.side-menu {
+    -fx-background-color: #151818;
+    -fx-padding: 10;
+}
+
+.user-profile {
+    -fx-padding: 5;
+}
+
+.user-profile .user-name {
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial Black", sans-serif;
+    -fx-text-fill: #c7c6c6;
+}
+
+.user-profile ImageView {
+    -fx-border-color: #d8b3ff;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.5, 0, 0);
+}
+
+.menu-button {
+    -fx-text-fill: #c7c6c6;
+    -fx-background-color: #151818;
+    -fx-background-radius: 5;
+    -fx-border-width: 0 0 0 0;
+    -fx-pref-width: 180;
+    -fx-max-width: 180;
+    -fx-pref-height: 35;
+    -fx-max-height: 35;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial Black", sans-serif;
+}
+
+.menu-button:hover {
+    -fx-background-color: #d8b3ff;
+    -fx-text-fill: #151818;
+    -fx-cursor: hand;
+}
+
+.text {
+    -fx-text-fill: #c7c6c6;
+}
