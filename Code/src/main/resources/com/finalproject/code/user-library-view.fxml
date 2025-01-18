@@ -22,7 +22,7 @@
             <Separator styleClass="separator"/>
 
             <!--    Menu buttons-->
-            <Button text="My library" onAction="#onMyLibraryButtonClick" styleClass="menu-button"/>
+            <Button text="My library" styleClass="menu-button"/>
             <Button text="Search Books" onAction="#onSearchBooksButtonClick" styleClass="menu-button"/>
             <Button text="Reading Goal" onAction="#onReadingGoalButtonClick" styleClass="menu-button"/>
             <Button text="Recommendations" onAction="#onRecommendationsButtonClick" styleClass="menu-button"/>
