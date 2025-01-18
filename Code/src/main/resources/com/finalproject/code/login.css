@@ -1,0 +1,69 @@
+.background {
+    -fx-background-color: #151818;
+}
+
+.title {
+    -fx-font-family: "Arial Black", sans-serif;
+    -fx-font-size: 30px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10px 0;
+}
+
+.subtitle {
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 0 0 20px 0;
+}
+
+.sign-up-subtitle {
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #d8b3ff;
+}
+
+.sign-up-subtitle:hover {
+    -fx-text-fill: #e6cfff;
+    -fx-cursor: hand;
+}
+
+.username, .password {
+    -fx-background-color: #333333;
+    -fx-text-fill: #FFFFFF;
+    -fx-prompt-text-fill: a9a9a9;
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-font-size: 16px;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 400px;
+    -fx-font-family: Arial, sans-serif;
+}
+
+.username:focused, .password:focused {
+    -fx-border-color: #d8b3ff;
+    -fx-background-color: #444444;
+}
+
+.error-message {
+    -fx-font-size: 14px;
+    -fx-font-family: Arial, sans-serif;
+    -fx-text-fill: #f74a4a;
+}
+
+.loginButton {
+    -fx-pref-width: 400px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #d8b3ff;
+    -fx-text-fill: #151818;
+    -fx-font-size: 16px;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-font-family: "Arial Black", sans-serif;
+}
+
+.loginButton:hover {
+    -fx-background-color: #e6cfff;
+    -fx-cursor: hand;
+}
