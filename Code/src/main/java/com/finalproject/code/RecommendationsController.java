@@ -75,17 +75,6 @@ public class RecommendationsController {
         stage.show();
     }
 
-    // Directs the user to the recommendations page
-    @FXML
-    public void onRecommendationsButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("recommendations-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("home.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
-    }
-
     // Directs the user to their friends page
     @FXML
     public void onFriendsButtonClick(ActionEvent event) throws IOException {

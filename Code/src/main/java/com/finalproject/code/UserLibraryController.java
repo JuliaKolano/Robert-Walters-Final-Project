@@ -42,17 +42,6 @@ public class UserLibraryController {
         stage.show();
     }
 
-    // Directs the user to their library page
-    @FXML
-    public void onMyLibraryButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user-library-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("home.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
-    }
-
     // Directs the user to the search books page
     @FXML
     public void onSearchBooksButtonClick(ActionEvent event) throws IOException {

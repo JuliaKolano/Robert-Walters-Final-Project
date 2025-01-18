@@ -31,17 +31,6 @@ public class UserProfileController {
         userName.setText("Julia Kolano");
     }
 
-    // Directs the user to their profile page
-    @FXML
-    public void onUserProfileButtonClick(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user-profile-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("home.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
-    }
-
     // Directs the user to their library page
     @FXML
     public void onMyLibraryButtonClick(ActionEvent event) throws IOException {

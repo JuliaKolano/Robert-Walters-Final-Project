@@ -64,17 +64,6 @@ public class ReadingGoalController {
         stage.show();
     }
 
-    // Directs the user to their reading goal page
-    @FXML
-    public void onReadingGoalButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reading-goal-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("home.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
-    }
-
     // Directs the user to the recommendations page
     @FXML
     public void onRecommendationsButtonClick(ActionEvent event) throws IOException {

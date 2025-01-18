@@ -85,15 +85,4 @@ public class FriendsController {
         stage.setScene(scene);
         stage.show();
     }
-
-    // Directs the user to their friends page
-    @FXML
-    public void onFriendsButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("friends-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("home.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
-    }
 }
