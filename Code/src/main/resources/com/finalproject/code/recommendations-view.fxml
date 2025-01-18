@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<?import javafx.scene.image.ImageView?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.RecommendationsController">
+    <!--    Left side menu-->
+    <left>
+        <VBox prefWidth="200" styleClass="side-menu" alignment="TOP_CENTER" spacing="10">
+            <!--    User profile-->
+            <HBox onMouseClicked="#onUserProfileButtonClick" alignment="CENTER_LEFT" spacing="10" styleClass="user-profile">
+                <ImageView fx:id="profilePicture" fitWidth="20" fitHeight="20" />
+                <Label fx:id="userName" styleClass="user-name" />
+            </HBox>
 
-</AnchorPane>
+            <Separator styleClass="separator"/>
+
+            <!--    Menu buttons-->
+            <Button text="My library" onAction="#onMyLibraryButtonClick" styleClass="menu-button"/>
+            <Button text="Search Books" onAction="#onSearchBooksButtonClick" styleClass="menu-button"/>
+            <Button text="Reading Goal" onAction="#onReadingGoalButtonClick" styleClass="menu-button"/>
+            <Button text="Recommendations" onAction="#onRecommendationsButtonClick" styleClass="menu-button"/>
+            <Button text="Friends" onAction="#onFriendsButtonClick" styleClass="menu-button"/>
+        </VBox>
+    </left>
+
+    <!--    Main content-->
+    <center>
+        <StackPane styleClass="main-content">
+            <Label text="Recommendations" styleClass="text"/>
+        </StackPane>
+    </center>
+</BorderPane>
