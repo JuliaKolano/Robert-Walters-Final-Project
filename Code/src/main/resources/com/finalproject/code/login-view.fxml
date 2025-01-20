@@ -24,6 +24,6 @@
 
     <Label styleClass="error-message" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-    <Button styleClass="loginButton" text="Login" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    <Button styleClass="login-button" text="Login" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
 </GridPane>
