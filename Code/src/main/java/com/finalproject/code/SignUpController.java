@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class SignUpController {
 
+    // Directs the user to the login page
     @FXML
     public void onLoginButtonClick(MouseEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
