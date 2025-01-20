@@ -47,12 +47,13 @@
 }
 
 .error-message {
+    -fx-max-width: 400px;
     -fx-font-size: 14px;
     -fx-font-family: Arial, sans-serif;
     -fx-text-fill: #f74a4a;
 }
 
-.loginButton {
+.login-button, .sign-up-button {
     -fx-pref-width: 400px;
     -fx-pref-height: 40px;
     -fx-background-color: #d8b3ff;
@@ -63,7 +64,7 @@
     -fx-font-family: "Arial Black", sans-serif;
 }
 
-.loginButton:hover {
+.login-button:hover, .sign-up-button:hover {
     -fx-background-color: #e6cfff;
     -fx-cursor: hand;
 }

@@ -1,10 +1,10 @@
 create table Users(
-	id int primary key,
-	username varchar(15)
+	id int identity(1,1) primary key,
+	username varchar(15) not null
 );
 
 create table Passwords (
-	id int primary key,
-	password varchar(20),
-	user_id int foreign key references Users(id)
+	id int identity(1,1) primary key,
+	password varchar(20) not null,
+	user_id int foreign key references Users(id) not null
 );
