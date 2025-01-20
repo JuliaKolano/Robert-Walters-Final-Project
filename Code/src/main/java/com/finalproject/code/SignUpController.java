@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class LoginController {
+public class SignUpController {
 
     @FXML
-    public void onSignUpButtonClick(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sign-up-view.fxml"));
+    public void onLoginButtonClick(MouseEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("login.css")).toExternalForm());

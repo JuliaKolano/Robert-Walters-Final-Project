@@ -16,18 +16,18 @@
     -fx-padding: 0 0 20px 0;
 }
 
-.sign-up-subtitle {
+.sign-up-subtitle, .login-subtitle{
     -fx-font-family: Arial, sans-serif;
     -fx-font-size: 14px;
     -fx-text-fill: #d8b3ff;
 }
 
-.sign-up-subtitle:hover {
+.sign-up-subtitle:hover, .login-subtitle:hover {
     -fx-text-fill: #e6cfff;
     -fx-cursor: hand;
 }
 
-.username, .password {
+.username, .password, .repeat-password {
     -fx-background-color: #333333;
     -fx-text-fill: #FFFFFF;
     -fx-prompt-text-fill: a9a9a9;
@@ -41,7 +41,7 @@
     -fx-font-family: Arial, sans-serif;
 }
 
-.username:focused, .password:focused {
+.username:focused, .password:focused, .repeat-password:focused {
     -fx-border-color: #d8b3ff;
     -fx-background-color: #444444;
 }
