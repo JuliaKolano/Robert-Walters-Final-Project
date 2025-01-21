@@ -7,22 +7,7 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.UserProfileController">
     <!--    Left side menu-->
     <left>
-        <VBox prefWidth="200" styleClass="side-menu" alignment="TOP_CENTER" spacing="10">
-            <!--    User profile-->
-            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="user-profile">
-                <ImageView fx:id="profilePicture" fitWidth="20" fitHeight="20" />
-                <Label fx:id="userName" styleClass="user-name" />
-            </HBox>
-
-            <Separator styleClass="separator"/>
-
-            <!--    Menu buttons-->
-            <Button text="My library" onAction="#onMyLibraryButtonClick" styleClass="menu-button"/>
-            <Button text="Search Books" onAction="#onSearchBooksButtonClick" styleClass="menu-button"/>
-            <Button text="Reading Goal" onAction="#onReadingGoalButtonClick" styleClass="menu-button"/>
-            <Button text="Recommendations" onAction="#onRecommendationsButtonClick" styleClass="menu-button"/>
-            <Button text="Friends" onAction="#onFriendsButtonClick" styleClass="menu-button"/>
-        </VBox>
+        <fx:include source="side-menu.fxml" />
     </left>
 
     <!--    Main content-->
