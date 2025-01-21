@@ -89,7 +89,7 @@ public class SignUpController {
     // Check if the username is valid
     private boolean validUsername(String username) throws SQLException {
         // if the database returns a username, username is invalid, otherwise it is (hasn't been used before)
-        return DatabaseUtility.getUserByUsername(username) == null;
+        return DatabaseUtility.getUsername(username) == null;
     }
 
 

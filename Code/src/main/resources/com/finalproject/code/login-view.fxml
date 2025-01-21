@@ -18,12 +18,12 @@
         </HBox>
     </GridPane>
 
-    <TextField styleClass="username" GridPane.rowIndex="1" GridPane.columnIndex="1" promptText="Username"/>
+    <TextField fx:id="usernameField" styleClass="username" GridPane.rowIndex="1" GridPane.columnIndex="1" promptText="Username"/>
 
-    <PasswordField styleClass="password" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Password"/>
+    <PasswordField fx:id="passwordField" styleClass="password" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Password"/>
 
-    <Label styleClass="error-message" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    <Label fx:id="errorMessage" styleClass="error-message" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-    <Button styleClass="login-button" text="Login" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    <Button onAction="#onLoginButtonClick" styleClass="login-button" text="Login" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
 </GridPane>
