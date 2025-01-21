@@ -24,29 +24,9 @@ public class DatabaseUtility {
         return connection;
     }
 
-    // Fetch the username of a user with the specified username
-    public static String getUserByUsername(String username) throws SQLException {
-        String sql = "select username from users where username = ?";
-        PreparedStatement selectStatement = connection.prepareStatement(sql);
-        selectStatement.setString(1, username);
-        ResultSet resultSet = selectStatement.executeQuery();
-        // if the username exists in the database return it, if not return null
-        if (resultSet.next()) {
-            return resultSet.getString("username");
-        } else {
-            return null;
-        }
-    }
 
-    // Fetch the user id that corresponds to a username
-    public static String getUserIdByUsername(String username) throws SQLException {
-        String sql = "select id from users where username = ?";
-        PreparedStatement selectStatement = connection.prepareStatement(sql);
-        selectStatement.setString(1, username);
-        ResultSet resultSet = selectStatement.executeQuery();
-        resultSet.next();
-        return resultSet.getString("id");
-    }
+    // Create methods
+
 
     // Add a user to the database
     public static void createUser(String username, String password) throws SQLException {
@@ -68,4 +48,62 @@ public class DatabaseUtility {
         passwordInsertStatement.executeUpdate();
         passwordInsertStatement.close();
     }
+
+
+    // Read methods
+
+
+    // Fetch the username of a user with the specified username
+    public static String getUsername(String username) throws SQLException {
+        String sql = "select username from users where username = ?";
+        PreparedStatement selectStatement = connection.prepareStatement(sql);
+        selectStatement.setString(1, username);
+        ResultSet resultSet = selectStatement.executeQuery();
+        // if the username exists in the database return it, if not return null
+        if (resultSet.next()) {
+            return resultSet.getString("username");
+        } else {
+            return null;
+        }
+    }
+
+    // Fetch the user id that corresponds to a username
+    public static String getUserIdByUsername(String username) throws SQLException {
+        String sql = "select id from users where username = ?";
+        PreparedStatement selectStatement = connection.prepareStatement(sql);
+        selectStatement.setString(1, username);
+        ResultSet resultSet = selectStatement.executeQuery();
+        // if the username exists in the database return the user id, if not return null
+        if (resultSet.next()) {
+            return resultSet.getString("id");
+        } else {
+            return null;
+        }
+    }
+
+    // Fetch the username of a user with the specified username
+    public static String getPasswordByUsername(String username) throws SQLException {
+        // Get the user id first to use it as a foreign key for the passwords table
+        String userId = getUserIdByUsername(username);
+        // Get the password that corresponds to the user id
+        String sql = "select password from passwords where user_id = ?";
+        PreparedStatement selectStatement = connection.prepareStatement(sql);
+        selectStatement.setString(1, userId);
+        ResultSet resultSet = selectStatement.executeQuery();
+        // if the user has a password in the database return it, if not return null
+        if (resultSet.next()) {
+            return resultSet.getString("password");
+        } else {
+            return null;
+        }
+    }
+
+
+    // Update methods
+
+
+
+    // Delete methods
+
+
 }
