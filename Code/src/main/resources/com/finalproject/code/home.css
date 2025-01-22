@@ -53,3 +53,68 @@
 .text {
     -fx-text-fill: #c7c6c6;
 }
+
+.search-bar-container {
+    -fx-padding: 20;
+}
+
+.search-bar {
+    -fx-background-color: #151818;
+    -fx-background-radius: 5px;
+    -fx-font-family: Arial, sans-serif;
+    -fx-text-fill: #c7c6c6;
+    -fx-prompt-text-fill: a9a9a9;
+    -fx-padding: 10 40 10 30;
+    -fx-font-size: 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+}
+
+.search-bar:focused {
+    -fx-border-color: #d8b3ff;
+}
+
+.search-icon {
+    -fx-padding: 0 0 0 10;
+    -fx-font-size: 16;
+    -fx-text-fill: #c7c6c6;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #272b2b;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.book-container {
+    -fx-padding: 10 10;
+    -fx-background-color: #151818;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: transparent;
+}
+
+.book-container:hover {
+    -fx-border-color: #d8b3ff;
+    -fx-cursor: hand;
+}
+
+.book-title, .book-text {
+    -fx-text-fill: #c7c6c6;
+    -fx-font-family: Arial, sans-serif;
+}
+
+.book-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.book-text {
+    -fx-font-size: 12;
+}
