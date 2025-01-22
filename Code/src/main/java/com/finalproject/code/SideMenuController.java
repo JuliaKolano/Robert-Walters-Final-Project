@@ -1,5 +1,6 @@
 package com.finalproject.code;
 
+import com.finalproject.code.classes.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SideMenuController {
+    // Variables
+    private User user;
+    // UI components
     @FXML
     private ImageView profilePicture;
 
@@ -23,12 +27,8 @@ public class SideMenuController {
 
     @FXML
     public void initialize() {
-        // Set the user's profile picture
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("user.png")));
-        profilePicture.setImage(image);
-
-        // Set the user's name
-        userName.setText("Julia Kolano");
+        // Initialise all the values before the component gets displayed
+        initializeUserDetails();
     }
 
     // Directs the user to their profile page
@@ -95,5 +95,26 @@ public class SideMenuController {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("home.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
+    }
+
+    // Initialise the logged-in user's information from the user object
+    private void initializeUserDetails() {
+        // Get the singleton instance of the user object
+        User user = User.getInstance();
+        // If the user exists, initialize their details
+        if (user != null) {
+
+            // Set the profile picture displayed
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(user.getProfilePicturePath())));
+            profilePicture.setImage(image);
+
+            // Set the username displayed
+            userName.setText(user.getUsername());
+        } else {
+            // Use default values if the user doesn't exist
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("user.png")));
+            profilePicture.setImage(image);
+            userName.setText("Unknown User");
+        }
     }
 }
