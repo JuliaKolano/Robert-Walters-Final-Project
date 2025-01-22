@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.BookController" maxWidth="160" prefWidth="160" maxHeight="190"
+           styleClass="book-container">
+    <VBox spacing="10" alignment="CENTER">
+        <ImageView fx:id="bookCover" fitWidth="100" fitHeight="150" preserveRatio="true" />
+        <VBox alignment="CENTER_LEFT" spacing="10">
+            <Label fx:id="bookTitle" text="Book Title" styleClass="book-title"/>
+            <Label fx:id="bookAuthor" text="Author: John Doe" styleClass="book-text"/>
+            <Label fx:id="bookGenre" text="Genre: Fiction" styleClass="book-text" />
+            <Label fx:id="bookPages" text="Pages: 320" styleClass="book-text" />
+        </VBox>
+    </VBox>
+</StackPane>

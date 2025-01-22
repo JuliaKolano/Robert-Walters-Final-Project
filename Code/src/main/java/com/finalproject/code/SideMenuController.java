@@ -17,9 +17,6 @@ import java.util.Objects;
 
 public class SideMenuController {
 
-    // Variables
-    private User user;
-
     // Reference to the UI components
     @FXML
     private ImageView profilePicture;
@@ -29,8 +26,24 @@ public class SideMenuController {
 
     @FXML
     public void initialize() {
-        // Initialise all the values before the component gets displayed
-        initializeUserDetails();
+        // Initialise the logged-in user's information from the user object
+
+        // Get the singleton instance of the user object
+        User user = User.getInstance();
+
+        // If the user exists, initialize their details
+        if (user != null) {
+            // Set the profile picture displayed
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(user.getProfilePicturePath())));
+            profilePicture.setImage(image);
+            // Set the username displayed
+            userName.setText(user.getUsername());
+        } else {
+            // Use default values if the user doesn't exist
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("user.png")));
+            profilePicture.setImage(image);
+            userName.setText("Unknown User");
+        }
     }
 
     // Directs the user to their profile page
@@ -97,26 +110,5 @@ public class SideMenuController {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("home.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
-    }
-
-    // Initialise the logged-in user's information from the user object
-    private void initializeUserDetails() {
-        // Get the singleton instance of the user object
-        User user = User.getInstance();
-        // If the user exists, initialize their details
-        if (user != null) {
-
-            // Set the profile picture displayed
-            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(user.getProfilePicturePath())));
-            profilePicture.setImage(image);
-
-            // Set the username displayed
-            userName.setText(user.getUsername());
-        } else {
-            // Use default values if the user doesn't exist
-            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("user.png")));
-            profilePicture.setImage(image);
-            userName.setText("Unknown User");
-        }
     }
 }

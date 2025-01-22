@@ -3,7 +3,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.SearchBooksController">
     <!--    Left side menu-->
     <left>
@@ -13,7 +12,31 @@
     <!--    Main content-->
     <center>
         <StackPane styleClass="main-content">
-            <Label text="Search Books" styleClass="text"/>
+            <VBox alignment="TOP_CENTER" spacing="10" styleClass="search-bar-container">
+                <StackPane>
+                    <TextField promptText="Search books..." styleClass="search-bar"/>
+                    <Label text="🔍" styleClass="search-icon" StackPane.alignment="CENTER_LEFT"/>
+                </StackPane>
+                <ScrollPane xmlns:fx="http://javafx.com/fxml" fitToWidth="true" pannable="true">
+                    <FlowPane hgap="30" vgap="20">
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                        <fx:include source="book-view.fxml"/>
+                    </FlowPane>
+                </ScrollPane>
+            </VBox>
         </StackPane>
     </center>
 </BorderPane>

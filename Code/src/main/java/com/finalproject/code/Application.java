@@ -29,6 +29,16 @@ public class Application extends javafx.application.Application {
         stage.show();
     }
 
+//    @Override
+//    public void start(Stage stage) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("search-books-view.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+//        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("home.css")).toExternalForm());
+//        stage.setTitle("Book Library");
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+
     // Close the database connection when application stops
     @Override
     public void stop() {
