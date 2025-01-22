@@ -16,9 +16,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SideMenuController {
+
     // Variables
     private User user;
-    // UI components
+
+    // Reference to the UI components
     @FXML
     private ImageView profilePicture;
 

@@ -5,6 +5,6 @@ create table Users(
 
 create table Passwords (
 	id int identity(1,1) primary key,
-	password varchar(20) not null,
+	password varbinary(max) not null,
 	user_id int foreign key references Users(id) not null
 );
