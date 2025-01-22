@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class LoginController {
         } else if (checkCredentials(username, password)) {
 
             // Create a user object with the provided username
-            User user = new User(username);
+            User.getInstance(username);
 
             // Take the user to the home page
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user-library-view.fxml"));
