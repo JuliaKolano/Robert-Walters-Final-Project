@@ -6,12 +6,12 @@ public class DatabaseUtility {
 
     // Variables
     private static Connection connection;
-    private static String passwordEncryptionKey = "j)x4)Ab28cw8Gf89"; // TODO move to environment variables later
+    private static final String passwordEncryptionKey = "j)x4)Ab28cw8Gf89"; // TODO move to environment variables later
 
     // Server and database credentials
-    private static String url = "jdbc:sqlserver://localhost;database=BookLibraryDB";
-    private static String user = "SA";
-    private static String password = "Passw0rd";
+    private static String url = "jdbc:sqlserver://localhost;database=BookLibraryDB"; // TODO move to environment variables later
+    private static String user = "SA"; // TODO move to environment variables later
+    private static String password = "Passw0rd"; // TODO move to environment variables later
 
     // Set up the connection with the database
     public static Connection getConnection() {

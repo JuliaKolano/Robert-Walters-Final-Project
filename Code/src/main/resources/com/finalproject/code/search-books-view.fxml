@@ -14,7 +14,7 @@
         <StackPane styleClass="main-content">
             <VBox alignment="TOP_CENTER" spacing="10" styleClass="search-bar-container">
                 <StackPane>
-                    <TextField promptText="Search books..." styleClass="search-bar"/>
+                    <TextField promptText="Search books..." styleClass="search-bar" onMouseClicked="#searchBooks"/>
                     <Label text="🔍" styleClass="search-icon" StackPane.alignment="CENTER_LEFT"/>
                 </StackPane>
                 <ScrollPane xmlns:fx="http://javafx.com/fxml" fitToWidth="true" pannable="true">
