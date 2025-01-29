@@ -4,4 +4,4 @@
 21/01/2025 - Implemented the login functionality, extracted the side menu to separate files
 22/01/2025 - Displayed user information in the side menu, implemented password encryption, created the initial layout for the book search page
 23/01/2025 - Connected to the google books api and fetched some test data
-29/01/2025 - Obtained all the book info based on a search query...
+29/01/2025 - Obtained all the book info based on a search query, displayed all the books on the search books page
