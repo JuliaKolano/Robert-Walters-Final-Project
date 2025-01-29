@@ -120,7 +120,6 @@
 
 .book-container:hover {
     -fx-border-color: #d8b3ff;
-    -fx-cursor: hand;
 }
 
 .book-title, .book-text {
@@ -135,4 +134,28 @@
 
 .book-text {
     -fx-font-size: 12;
+}
+
+.add-button {
+    -fx-background-color: #d8b3ff;
+    -fx-text-fill: white;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 25;
+    -fx-max-width: 25;
+    -fx-pref-height: 10;
+    -fx-max-height: 10;
+    -fx-alignment: center;
+}
+
+.add-button:hover {
+    -fx-background-color: #e6cfff;
+    -fx-cursor: hand;
+}
+
+.no-books-message {
+    -fx-text-fill: #c7c6c6;
+    -fx-font-size: 16;
+    -fx-font-family: "Arial Black", sans-serif;
 }

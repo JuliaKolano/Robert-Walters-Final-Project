@@ -25,6 +25,9 @@
                 <ScrollPane xmlns:fx="http://javafx.com/fxml" fitToWidth="true" pannable="true">
                     <FlowPane fx:id="bookFlowPane" hgap="30" vgap="20" />
                 </ScrollPane>
+
+<!--                No Books Message-->
+                <Label fx:id="noBooksMessage" text="No Books Found" visible="false" styleClass="no-books-message"/>
             </VBox>
         </StackPane>
     </center>

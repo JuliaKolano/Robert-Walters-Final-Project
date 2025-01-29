@@ -4,15 +4,23 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.BookController" maxWidth="160" prefWidth="160" prefHeight="280" maxHeight="280"
-           styleClass="book-container">
+           styleClass="book-container" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit">
+<!--    Book Information-->
     <VBox spacing="10" alignment="CENTER">
         <ImageView fx:id="bookCover" fitWidth="100" fitHeight="150" preserveRatio="true" />
         <VBox alignment="CENTER_LEFT" spacing="10">
-            <Label fx:id="bookTitle" text="Book Title" styleClass="book-title"/>
-            <Label fx:id="bookAuthor" text="Author: John Doe" styleClass="book-text"/>
-            <Label fx:id="bookGenre" text="Genre: Fiction" styleClass="book-text" />
-            <Label fx:id="bookPages" text="Pages: 320" styleClass="book-text" />
+            <Label fx:id="bookTitle" styleClass="book-title"/>
+            <Label fx:id="bookAuthor" styleClass="book-text"/>
+            <Label fx:id="bookGenre" styleClass="book-text" />
+            <Label fx:id="bookPages" styleClass="book-text" />
         </VBox>
+    </VBox>
+
+<!--    Add to Library Button-->
+    <VBox alignment="BOTTOM_RIGHT" >
+        <Button fx:id="addButton" text="+" onAction="#onAddButtonClicked"
+                styleClass="add-button" visible="false" />
     </VBox>
 </StackPane>
