@@ -14,9 +14,11 @@
         <StackPane styleClass="main-content">
             <VBox alignment="TOP_CENTER" spacing="10" styleClass="search-bar-container">
                 <StackPane>
-                    <TextField promptText="Search books..." styleClass="search-bar" onMouseClicked="#searchBooks"/>
+                    <TextField fx:id="searchBar" promptText="Search books..." styleClass="search-bar"/>
                     <Label text="🔍" styleClass="search-icon" StackPane.alignment="CENTER_LEFT"/>
+                    <Button onAction="#searchBooks" text="Search" styleClass="search-button" StackPane.alignment="CENTER_RIGHT"/>
                 </StackPane>
+
                 <ScrollPane xmlns:fx="http://javafx.com/fxml" fitToWidth="true" pannable="true">
                     <FlowPane hgap="30" vgap="20">
                         <fx:include source="book-view.fxml"/>
