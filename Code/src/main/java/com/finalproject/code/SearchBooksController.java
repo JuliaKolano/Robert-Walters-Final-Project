@@ -1,16 +1,11 @@
 package com.finalproject.code;
 
-import javafx.event.ActionEvent;
+import com.finalproject.code.classes.Book;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import javafx.scene.layout.FlowPane;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -19,9 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
 
 public class SearchBooksController {
 
@@ -31,12 +23,19 @@ public class SearchBooksController {
     // Reference to the UI components
     @FXML
     private TextField searchBar;
+    @FXML
+    private FlowPane bookFlowPane;
 
     @FXML
     public void searchBooks() {
 
         // Get the text input from the search bar
-        String query = searchBar.getText();
+        String query = searchBar.getText().trim();
+
+        // if the text input is empty do nothing
+        if (query.isEmpty()) {
+            return;
+        }
 
         // Set up the http client for accessing web APIs
         OkHttpClient client = new OkHttpClient();
@@ -53,61 +52,44 @@ public class SearchBooksController {
             // Convert the response to a JSON object
             JSONObject jsonObject = new JSONObject(body);
 
+            // Clear the list of books from the previous query
+            bookFlowPane.getChildren().clear();
+
+            // Check if there are any books available that match the query
             if (jsonObject.has("items")) {
-                JSONArray books = jsonObject.getJSONArray("items");
+                JSONArray booksArray = jsonObject.getJSONArray("items");
 
-                for (int i = 0; i < books.length(); i++) {
-                    JSONObject book = books.getJSONObject(i);
-                    JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+                // Go through all the book items returned by the API
+                for (int i = 0; i < booksArray.length(); i++) {
+                    JSONObject bookJson = booksArray.getJSONObject(i);
+                    JSONObject volumeInfo = bookJson.getJSONObject("volumeInfo");
 
-                    // Get the cover url
-                    try {
-                        JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-                        String coverURL = imageLinks.getString("smallThumbnail");
-                        System.out.println(coverURL);
-                    } catch (JSONException error) {
-                        System.out.println("No cover found");
-                    }
+                    // Get the book data
+                    String title = volumeInfo.optString("title", "None");
+                    String author = volumeInfo.has("authors") ? volumeInfo.getJSONArray("authors").getString(0) : "Unknown";
+                    String genre = volumeInfo.has("categories") ? volumeInfo.getJSONArray("categories").getString(0) : "Unknown";
+                    int pageCount = volumeInfo.optInt("pageCount", 0);
+                    String coverUrl = volumeInfo.has("imageLinks") ? volumeInfo.getJSONObject("imageLinks").optString("smallThumbnail", null) : null;
 
-                    // Get title
-                    try {
-                        String title = volumeInfo.getString("title");
-                        System.out.println(title);
-                    } catch (JSONException error) {
-                        System.out.println("No title");
-                    }
+                    // Create a book object using extracted data
+                    Book book = new Book(title, author, genre, pageCount, coverUrl);
 
-                    // Get the author
-                    try {
-                        JSONArray authors = volumeInfo.getJSONArray("authors");
-                        String author = authors.getString(0);
-                        System.out.println(author);
-                    } catch (JSONException error) {
-                        System.out.println("No author");
-                    }
+                    // Load the book view for each book
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/finalproject/code/book-view.fxml"));
+                    Parent bookView = loader.load();
 
-                    // Get the genre
-                    try {
-                        JSONArray genres = volumeInfo.getJSONArray("categories");
-                        String genre = genres.getString(0);
-                        System.out.println(genre);
-                    } catch (JSONException error) {
-                        System.out.println("No genre");
-                    }
+                    // Set the book data through the book controller
+                    BookController controller = loader.getController();
+                    controller.setBookData(book);
 
-                    // Get the number of pages
-                    try {
-                        String pages = volumeInfo.getString("pageCount");
-                        System.out.println(pages);
-                    } catch (JSONException error) {
-                        System.out.println("No page count");
-                    }
+                    // Add the populated book view to the flow pane
+                    bookFlowPane.getChildren().add(bookView);
                 }
             } else {
                 System.out.println("No books found");
             }
 
-        } catch (IOException error) {
+        } catch (IOException | JSONException error) {
             error.printStackTrace();
         }
     }

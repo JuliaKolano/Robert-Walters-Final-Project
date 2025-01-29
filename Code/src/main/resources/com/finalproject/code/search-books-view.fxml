@@ -12,31 +12,18 @@
     <!--    Main content-->
     <center>
         <StackPane styleClass="main-content">
-            <VBox alignment="TOP_CENTER" spacing="10" styleClass="search-bar-container">
+            <VBox alignment="TOP_CENTER" spacing="10" styleClass="container">
+
+<!--                Search Bar-->
                 <StackPane>
                     <TextField fx:id="searchBar" promptText="Search books..." styleClass="search-bar"/>
                     <Label text="🔍" styleClass="search-icon" StackPane.alignment="CENTER_LEFT"/>
                     <Button onAction="#searchBooks" text="Search" styleClass="search-button" StackPane.alignment="CENTER_RIGHT"/>
                 </StackPane>
 
+<!--                Book List-->
                 <ScrollPane xmlns:fx="http://javafx.com/fxml" fitToWidth="true" pannable="true">
-                    <FlowPane hgap="30" vgap="20">
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                        <fx:include source="book-view.fxml"/>
-                    </FlowPane>
+                    <FlowPane fx:id="bookFlowPane" hgap="30" vgap="20" />
                 </ScrollPane>
             </VBox>
         </StackPane>
