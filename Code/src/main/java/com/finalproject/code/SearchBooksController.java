@@ -4,6 +4,7 @@ import com.finalproject.code.classes.Book;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import okhttp3.OkHttpClient;
@@ -25,6 +26,8 @@ public class SearchBooksController {
     private TextField searchBar;
     @FXML
     private FlowPane bookFlowPane;
+    @FXML
+    private Label noBooksMessage;
 
     @FXML
     public void searchBooks() {
@@ -54,6 +57,7 @@ public class SearchBooksController {
 
             // Clear the list of books from the previous query
             bookFlowPane.getChildren().clear();
+            noBooksMessage.setVisible(false);
 
             // Check if there are any books available that match the query
             if (jsonObject.has("items")) {
@@ -86,7 +90,7 @@ public class SearchBooksController {
                     bookFlowPane.getChildren().add(bookView);
                 }
             } else {
-                System.out.println("No books found");
+                noBooksMessage.setVisible(true);
             }
 
         } catch (IOException | JSONException error) {

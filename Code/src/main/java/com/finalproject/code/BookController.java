@@ -2,6 +2,7 @@ package com.finalproject.code;
 
 import com.finalproject.code.classes.Book;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,8 +22,14 @@ public class BookController {
     private Label bookGenre;
     @FXML
     private Label bookPages;
+    @FXML
+    private Button addButton;
+
+    // Variables
+    private Book book;
 
     public void setBookData(Book book) {
+        this.book = book;
         // Populate the book view with data from the books object
         bookTitle.setText(book.getTitle());
         bookAuthor.setText("Author: " + book.getAuthor());
@@ -37,4 +44,26 @@ public class BookController {
         }
     }
 
+    // Display the add button on hover
+    @FXML
+    private void onMouseEnter() {
+        addButton.setVisible(true);
+    }
+
+    // Hide the add button when hovering stops
+    @FXML
+    private void onMouseExit() {
+        addButton.setVisible(false);
+    }
+
+    @FXML
+    private void onAddButtonClicked() {
+        if (book != null) {
+            System.out.println(book.getTitle());
+            System.out.println(book.getAuthor());
+            System.out.println(book.getGenre());
+            System.out.println(book.getPageCount());
+            System.out.println(book.getCoverUrl());
+        }
+    }
 }
