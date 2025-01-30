@@ -30,6 +30,12 @@ public class BookController {
 
     // Variables
     private Book book;
+    private SearchBooksController searchBooksController;
+
+    // Dependency injection used to access the methods from Search Books Controller
+    public void setSearchBooksController(SearchBooksController searchBooksController) {
+        this.searchBooksController = searchBooksController;
+    }
 
     public void setBookData(Book book) {
         this.book = book;
@@ -77,10 +83,14 @@ public class BookController {
             // Add user and book data to database
             try {
                 DatabaseUtility.createLibraryBook(username, title, author, genre, pageCount, coverUrl);
+                if (searchBooksController != null) {
+                    searchBooksController.showSnackbar("Book successfully added to library");
+                }
             } catch (SQLException error) {
-                System.out.println(error.getMessage());
+                if (searchBooksController != null) {
+                    searchBooksController.showSnackbar("There was an error adding the book to the library");
+                }
             }
-
         }
     }
 }
