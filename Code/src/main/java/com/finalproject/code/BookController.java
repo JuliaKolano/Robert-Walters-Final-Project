@@ -82,9 +82,16 @@ public class BookController {
 
             // Add user and book data to database
             try {
-                DatabaseUtility.createLibraryBook(username, title, author, genre, pageCount, coverUrl);
-                if (searchBooksController != null) {
-                    searchBooksController.showSnackbar("Book successfully added to library");
+                // only add it if it's not already in the library
+                if (DatabaseUtility.getBookIdByTitleAndAuthor(title, author) == null) {
+                    DatabaseUtility.createLibraryBook(username, title, author, genre, pageCount, coverUrl);
+                    if (searchBooksController != null) {
+                        searchBooksController.showSnackbar("Book successfully added to library");
+                    }
+                } else {
+                    if (searchBooksController != null) {
+                        searchBooksController.showSnackbar("Book is already in the library");
+                    }
                 }
             } catch (SQLException error) {
                 if (searchBooksController != null) {
