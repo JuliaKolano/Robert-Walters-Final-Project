@@ -53,6 +53,32 @@ public class DatabaseUtility {
         passwordInsertStatement.close();
     }
 
+    // Creates a book associated with (added to) the user's library
+    public static void createLibraryBook(String username, String title, String author, String genre, int pageCount, String coverUrl) throws SQLException {
+        // Add the book to the Books table
+        String bookSql = "insert into books (title, author, genre, pageCount, coverUrl) values (?, ?, ?, ?, ?)";
+        PreparedStatement bookInsertStatement = connection.prepareStatement(bookSql);
+        bookInsertStatement.setString(1, title);
+        bookInsertStatement.setString(2, author);
+        bookInsertStatement.setString(3, genre);
+        bookInsertStatement.setInt(4, pageCount);
+        bookInsertStatement.setString(5, coverUrl);
+        bookInsertStatement.executeUpdate();
+        bookInsertStatement.close();
+
+        // Get the user and book IDs
+        String userId = getUserIdByUsername(username);
+        String bookId = getBookIdByTitleAndAuthor(title, author);
+
+        // Add the user and book IDs to the UserBook table
+        String userBookSql = "insert into userbook (user_id, book_id) values (?, ?)";
+        PreparedStatement userBookInsertStatement = connection.prepareStatement(userBookSql);
+        userBookInsertStatement.setString(1, userId);
+        userBookInsertStatement.setString(2, bookId);
+        userBookInsertStatement.executeUpdate();
+        userBookInsertStatement.close();
+    }
+
 
     // Read methods
 
@@ -99,6 +125,21 @@ public class DatabaseUtility {
         if (resultSet.next()) {
             // The decryption algorithm inputs unknown symbols every other character, so remove them
             return resultSet.getString("password").replaceAll("(.).", "$1");
+        } else {
+            return null;
+        }
+    }
+
+    // Fetch the book id that corresponds to its title and author
+    public static String getBookIdByTitleAndAuthor(String title, String author) throws SQLException {
+        String sql = "select id from books where title = ? and author = ?";
+        PreparedStatement selectStatement = connection.prepareStatement(sql);
+        selectStatement.setString(1, title);
+        selectStatement.setString(2, author);
+        ResultSet resultSet = selectStatement.executeQuery();
+        // if the book exists in the database return the book id, if not return null
+        if (resultSet.next()) {
+            return resultSet.getString("id");
         } else {
             return null;
         }

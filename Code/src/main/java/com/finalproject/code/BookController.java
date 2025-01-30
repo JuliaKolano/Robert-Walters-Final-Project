@@ -1,12 +1,15 @@
 package com.finalproject.code;
 
 import com.finalproject.code.classes.Book;
+import com.finalproject.code.classes.User;
+import com.finalproject.code.utilities.DatabaseUtility;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class BookController {
@@ -58,12 +61,26 @@ public class BookController {
 
     @FXML
     private void onAddButtonClicked() {
+        // If the book clicked on exists add it to the user's library
         if (book != null) {
-            System.out.println(book.getTitle());
-            System.out.println(book.getAuthor());
-            System.out.println(book.getGenre());
-            System.out.println(book.getPageCount());
-            System.out.println(book.getCoverUrl());
+
+            // Prepare the data to be stored in the database according to database restrictions
+            String username = Objects.requireNonNull(User.getInstance()).getUsername();
+            String title = book.getTitle().length() > 80 ? book.getTitle().substring(0, 80) : book.getTitle();
+            String author = book.getAuthor().length() > 50 ? book.getAuthor().substring(0, 50) : book.getAuthor();
+            String genre = book.getGenre().length() > 50 ? book.getGenre().substring(0, 50) : book.getGenre();
+            int pageCount = Math.min(book.getPageCount(), 32_767); // Take the smaller value
+            // Can be null, but if it's not and is bigger than smallint then truncate it
+            String coverUrl = (book.getCoverUrl() != null && book.getCoverUrl().length() > 2083)
+                            ? book.getCoverUrl().substring(0, 2083) : book.getCoverUrl();
+
+            // Add user and book data to database
+            try {
+                DatabaseUtility.createLibraryBook(username, title, author, genre, pageCount, coverUrl);
+            } catch (SQLException error) {
+                System.out.println(error.getMessage());
+            }
+
         }
     }
 }
