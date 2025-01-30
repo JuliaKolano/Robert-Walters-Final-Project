@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.SearchBooksController">
-    <!--    Left side menu-->
+<!--    Left side menu-->
     <left>
         <fx:include source="side-menu-view.fxml" />
     </left>
 
-    <!--    Main content-->
+<!--    Main content-->
     <center>
         <StackPane styleClass="main-content">
             <VBox alignment="TOP_CENTER" spacing="10" styleClass="container">
@@ -26,8 +26,8 @@
                     <FlowPane fx:id="bookFlowPane" hgap="30" vgap="20" />
                 </ScrollPane>
 
-<!--                No Books Message-->
-                <Label fx:id="noBooksMessage" text="No Books Found" visible="false" styleClass="no-books-message"/>
+<!--                Snackbar Message-->
+                <Label fx:id="snackbarLabel" text="This is a snackbar message!" styleClass="snackbar" maxHeight="5" prefWidth="770" minWidth="770"/>
             </VBox>
         </StackPane>
     </center>

@@ -1,12 +1,14 @@
 package com.finalproject.code;
 
 import com.finalproject.code.classes.Book;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
+import javafx.util.Duration;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -27,7 +29,7 @@ public class SearchBooksController {
     @FXML
     private FlowPane bookFlowPane;
     @FXML
-    private Label noBooksMessage;
+    private Label snackbarLabel;
 
     @FXML
     public void searchBooks() {
@@ -57,7 +59,6 @@ public class SearchBooksController {
 
             // Clear the list of books from the previous query
             bookFlowPane.getChildren().clear();
-            noBooksMessage.setVisible(false);
 
             // Check if there are any books available that match the query
             if (jsonObject.has("items")) {
@@ -86,15 +87,46 @@ public class SearchBooksController {
                     BookController controller = loader.getController();
                     controller.setBookData(book);
 
+                    // Pass the reference of itself to the Book Controller
+                    controller.setSearchBooksController(this);
+
                     // Add the populated book view to the flow pane
                     bookFlowPane.getChildren().add(bookView);
                 }
             } else {
-                noBooksMessage.setVisible(true);
+                showSnackbar("No books found");
             }
-
         } catch (IOException | JSONException error) {
             error.printStackTrace();
         }
+    }
+
+    public void showSnackbar(String message) {
+
+        // Set the message on the snackbar
+        snackbarLabel.setText(message);
+
+        // Fade-in animation
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), snackbarLabel);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+
+        // Set up a new thread to show the snackbar
+        fadeIn.setOnFinished(_ -> {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000); // Snackbar will show for two seconds
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                // Fade-out animation
+                FadeTransition fadeOut = new FadeTransition(Duration.millis(300), snackbarLabel);
+                fadeOut.setFromValue(1);
+                fadeOut.setToValue(0);
+                fadeOut.play();
+            }).start();
+        });
+        fadeIn.play();
     }
 }

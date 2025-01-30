@@ -20,7 +20,6 @@
 
 <!--    Add to Library Button-->
     <VBox alignment="BOTTOM_RIGHT" >
-        <Button fx:id="addButton" text="+" onAction="#onAddButtonClicked"
-                styleClass="add-button" visible="false" />
+        <Button fx:id="addButton" text="+" onAction="#onAddButtonClicked" styleClass="add-button" visible="false" />
     </VBox>
 </StackPane>

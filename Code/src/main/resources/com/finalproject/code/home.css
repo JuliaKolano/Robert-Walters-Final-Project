@@ -154,8 +154,13 @@
     -fx-cursor: hand;
 }
 
-.no-books-message {
+.snackbar {
+    -fx-background-color: #323232;
     -fx-text-fill: #c7c6c6;
-    -fx-font-size: 16;
+    -fx-font-size: 12;
     -fx-font-family: "Arial Black", sans-serif;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-opacity: 0;
 }
