@@ -8,12 +8,12 @@ public class DatabaseUtility {
 
     // Variables
     private static Connection connection;
-    private static final String passwordEncryptionKey = "j)x4)Ab28cw8Gf89"; // TODO move to environment variables later
+    private static final String passwordEncryptionKey = System.getenv("PASSWORD_ENCRYPTION_KEY");
 
     // Server and database credentials
-    private static String url = "jdbc:sqlserver://localhost;database=BookLibraryDB"; // TODO move to environment variables later
-    private static String user = "SA"; // TODO move to environment variables later
-    private static String password = "Passw0rd"; // TODO move to environment variables later
+    private static final String url = System.getenv("DATABASE_URL");
+    private static final String user = System.getenv("DATABASE_USER");
+    private static final String password = System.getenv("DATABASE_PASSWORD");
 
     // Set up the connection with the database
     public static Connection getConnection() {
