@@ -57,15 +57,16 @@ public class DatabaseUtility {
     }
 
     // Creates a book associated with (added to) the user's library
-    public static void createLibraryBook(String username, String title, String author, String genre, int pageCount, String coverUrl) throws SQLException {
+    public static void createLibraryBook(String username, String title, String author, String genre, int pageCount, String coverUrl, boolean isRead) throws SQLException {
         // Add the book to the Books table
-        String bookSql = "insert into books (title, author, genre, pageCount, coverUrl) values (?, ?, ?, ?, ?)";
+        String bookSql = "insert into books (title, author, genre, pageCount, coverUrl, isRead) values (?, ?, ?, ?, ?, ?)";
         PreparedStatement bookInsertStatement = connection.prepareStatement(bookSql);
         bookInsertStatement.setString(1, title);
         bookInsertStatement.setString(2, author);
         bookInsertStatement.setString(3, genre);
         bookInsertStatement.setInt(4, pageCount);
         bookInsertStatement.setString(5, coverUrl);
+        bookInsertStatement.setBoolean(6, isRead);
         bookInsertStatement.executeUpdate();
         bookInsertStatement.close();
 

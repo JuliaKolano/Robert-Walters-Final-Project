@@ -84,7 +84,7 @@ public class BookController {
             try {
                 // only add it if it's not already in the library
                 if (DatabaseUtility.getBookIdByTitleAndAuthor(title, author) == null) {
-                    DatabaseUtility.createLibraryBook(username, title, author, genre, pageCount, coverUrl);
+                    DatabaseUtility.createLibraryBook(username, title, author, genre, pageCount, coverUrl, false);
                     if (searchBooksController != null) {
                         searchBooksController.showSnackbar("Book successfully added to library");
                     }
