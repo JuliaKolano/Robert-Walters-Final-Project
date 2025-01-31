@@ -29,18 +29,22 @@ public class SignUpController {
 
     // Directs the user to the login page
     @FXML
-    public void onLoginButtonClick(MouseEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("login.css")).toExternalForm());
-        stage.setScene(scene);
-        stage.show();
+    public void onLoginButtonClick(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("login.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException error) {
+            errorMessage.setText("There was a problem loading the page");
+        }
     }
 
     // Create the user account and direct them to the login page
     @FXML
-    public void onSignUpButtonClick(ActionEvent event) throws IOException, SQLException {
+    public void onSignUpButtonClick(ActionEvent event) {
         // Get the user input from the text fields
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -70,16 +74,24 @@ public class SignUpController {
             // Clear the error message
             errorMessage.setText("");
 
-            // Add user's credentials to the database
-            DatabaseUtility.createUser(username, password);
+            try {
+                // Add user's credentials to the database
+                DatabaseUtility.createUser(username, password);
+            } catch (SQLException error) {
+                errorMessage.setText("There was a problem creating your account");
+            }
 
-            // Direct the user to the login page
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
-            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("login.css")).toExternalForm());
-            stage.setScene(scene);
-            stage.show();
+            try {
+                // Direct the user to the login page
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+                Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // gets the current stage
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("login.css")).toExternalForm());
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException error) {
+                errorMessage.setText("There was a problem loading the page");
+            }
 
         } else {
             errorMessage.setText("Invalid username or password.");
@@ -87,12 +99,15 @@ public class SignUpController {
     }
 
     // Check if the username is valid
-    private boolean validUsername(String username) throws SQLException {
-        // if the database returns a username, username is invalid, otherwise it is (hasn't been used before)
-        return DatabaseUtility.getUsername(username) == null;
+    private boolean validUsername(String username) {
+        try {
+            // if the database returns a username, username is invalid, otherwise it is (hasn't been used before)
+            return DatabaseUtility.getUsername(username) == null;
+        } catch (SQLException error) {
+            errorMessage.setText("Couldn't connect to the server");
+            return false;
+        }
     }
-
-
 
     // Check if the password is valid
     private boolean validPassword(String password) {

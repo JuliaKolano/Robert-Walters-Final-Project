@@ -9,7 +9,6 @@
 
 .user-profile {
     -fx-padding: 10;
-    -fx-cursor: hand;
 }
 
 .user-profile .user-name {
@@ -52,6 +51,13 @@
 
 .text {
     -fx-text-fill: #c7c6c6;
+}
+
+.error-message {
+    -fx-max-width: 400px;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial, sans-serif;
+    -fx-text-fill: #f74a4a;
 }
 
 .container {

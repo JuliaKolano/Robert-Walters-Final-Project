@@ -2,6 +2,8 @@ package com.finalproject.code.utilities;
 
 import java.sql.*;
 
+import static javafx.application.Platform.exit;
+
 public class DatabaseUtility {
 
     // Variables
@@ -21,7 +23,8 @@ public class DatabaseUtility {
             try {
                 connection = DriverManager.getConnection(url, user, password);
             } catch (SQLException error) {
-                System.out.println(error.getMessage());
+                // If connection to the database can't be made, close the application
+                exit();
             }
         }
         return connection;

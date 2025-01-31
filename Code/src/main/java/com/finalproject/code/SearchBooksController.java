@@ -97,7 +97,7 @@ public class SearchBooksController {
                 showSnackbar("No books found");
             }
         } catch (IOException | JSONException error) {
-            error.printStackTrace();
+            showSnackbar("Something went wrong");
         }
     }
 
@@ -116,9 +116,7 @@ public class SearchBooksController {
             new Thread(() -> {
                 try {
                     Thread.sleep(2000); // Snackbar will show for two seconds
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                } catch (InterruptedException ignore) {}
 
                 // Fade-out animation
                 FadeTransition fadeOut = new FadeTransition(Duration.millis(300), snackbarLabel);
