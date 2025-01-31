@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class SearchBooksController {
 
-    //Variables
+    // Variables
     String googleBooksApiKey = System.getenv("GOOGLE_BOOKS_API_KEY");
 
     // Reference to the UI components
