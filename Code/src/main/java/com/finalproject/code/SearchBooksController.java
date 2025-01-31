@@ -21,7 +21,7 @@ import java.io.IOException;
 public class SearchBooksController {
 
     //Variables
-    String googleBooksApiKey = "AIzaSyCix_ZeHki89qIH0zsaPs6dZGflpLqz7J8"; // TODO move to environment variables later
+    String googleBooksApiKey = System.getenv("GOOGLE_BOOKS_API_KEY");
 
     // Reference to the UI components
     @FXML
