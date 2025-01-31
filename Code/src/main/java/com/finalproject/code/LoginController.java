@@ -20,12 +20,13 @@ import java.util.Objects;
 public class LoginController {
 
     // Reference to the UI components
+    // Set to public for tests to work
     @FXML
-    private TextField usernameField;
+    public TextField usernameField;
     @FXML
-    private TextField passwordField;
+    public TextField passwordField;
     @FXML
-    private Label errorMessage;
+    public Label errorMessage;
 
     // Directs the user to the sign-up page
     @FXML
