@@ -45,7 +45,7 @@ public class BookController {
         bookGenre.setText("Genre: " + book.getGenre());
         bookPages.setText("Pages: " + book.getPageCount());
 
-        // If there is no cover image available, provide a no cover image
+        // If there is no cover image available, provide a 'no cover' image
         if (book.getCoverUrl() != null) {
             bookCover.setImage(new Image(book.getCoverUrl(), true));
         } else {
@@ -97,6 +97,11 @@ public class BookController {
                 if (searchBooksController != null) {
                     searchBooksController.showSnackbar("There was an error adding the book to the library");
                 }
+            }
+        // If the book object is null
+        } else {
+            if (searchBooksController != null) {
+                searchBooksController.showSnackbar("There was an error adding the book to the library");
             }
         }
     }
