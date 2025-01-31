@@ -4,7 +4,8 @@ create table Books (
 	author varchar(50) not null,
 	genre varchar(50) not null,
 	pageCount smallint not null,
-	coverUrl nvarchar(2083)
+	coverUrl nvarchar(2083),
+	isRead bit not null
 );
 
 create table UserBook (

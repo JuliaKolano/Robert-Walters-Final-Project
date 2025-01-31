@@ -4,6 +4,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.UserLibraryController">
 <!--    Left side menu-->
     <left>
@@ -13,7 +16,16 @@
 <!--    Main content-->
     <center>
         <StackPane styleClass="main-content">
-            <Label text="My Library" styleClass="text"/>
+            <VBox alignment="TOP_CENTER" spacing="10" styleClass="container">
+
+                <!--               Library Book List-->
+                <ScrollPane xmlns:fx="http://javafx.com/fxml" fitToWidth="true" pannable="true">
+                    <FlowPane fx:id="bookFlowPane" hgap="30" vgap="20" />
+                </ScrollPane>
+
+                <!--                Snackbar Message-->
+                <Label fx:id="snackbarLabel" text="This is a snackbar message!" styleClass="snackbar" maxHeight="5" prefWidth="770" minWidth="770"/>
+            </VBox>
         </StackPane>
     </center>
 </BorderPane>
