@@ -2,7 +2,7 @@ package com.finalproject.code.classes;
 
 public class LibraryBook extends Book {
 
-    private final boolean isRead;
+    private boolean isRead;
 
     // Constructor
     public LibraryBook(String title, String author, String genre, int pageCount, String coverUrl, boolean isRead) {
@@ -11,7 +11,12 @@ public class LibraryBook extends Book {
     }
 
     // Getter
-    public boolean isRead() {
+    public boolean getIsRead() {
         return isRead;
+    }
+
+    // Setter
+    public void setIsRead(boolean isRead) {
+        this.isRead = isRead;
     }
 }
