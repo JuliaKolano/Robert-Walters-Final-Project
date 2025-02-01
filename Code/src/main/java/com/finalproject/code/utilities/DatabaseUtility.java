@@ -158,7 +158,8 @@ public class DatabaseUtility {
         List<LibraryBook> books = new ArrayList<>();
         // join the UserBook and Book tables
         String sql = "select title, author, genre, pageCount, coverUrl, isRead from books " +
-                "join userbook on books.id = userbook.book_id where userbook.user_id = ?";
+                "join userbook on books.id = userbook.book_id " +
+                "where userbook.user_id = ? order by isRead asc";
 
         PreparedStatement selectStatement = connection.prepareStatement(sql);
         selectStatement.setString(1, userId);
@@ -180,6 +181,26 @@ public class DatabaseUtility {
 
     // Update methods
 
+
+    // Update the isRead value of a book that corresponds to its title and author and the user's ID
+    public static boolean updateIsReadOfBook(String username, String title, String author, boolean isRead) throws SQLException {
+        // Get the user's ID from the username
+        String userId = getUserIdByUsername(username);
+
+        String sql = "update books set isRead = ? where id = " +
+                    "(select book_id from userbook where user_id = ? and book_id = " +
+                    "(Select id from books where title = ? and author = ?))";
+
+        PreparedStatement updateStatement = connection.prepareStatement(sql);
+        updateStatement.setBoolean(1, isRead);
+        updateStatement.setString(2, userId);
+        updateStatement.setString(3, title);
+        updateStatement.setString(4, author);
+
+        // Return true if more than one row was affected
+        int rowsUpdated = updateStatement.executeUpdate();
+        return rowsUpdated > 0;
+    }
 
 
     // Delete methods

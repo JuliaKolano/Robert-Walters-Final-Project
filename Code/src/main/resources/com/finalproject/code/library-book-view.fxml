@@ -5,7 +5,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.LibraryBookController" maxWidth="160" prefWidth="160" prefHeight="280" maxHeight="280"
-           styleClass="book-container">
+           styleClass="book-container" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit">
     <!--    Book Information-->
     <VBox spacing="10" alignment="CENTER">
         <ImageView fx:id="bookCover" fitWidth="100" fitHeight="150" preserveRatio="true" />
@@ -14,6 +14,11 @@
             <Label fx:id="bookAuthor" styleClass="book-text"/>
             <Label fx:id="bookGenre" styleClass="book-text" />
             <Label fx:id="bookPages" styleClass="book-text" />
+        </VBox>
+
+        <!--    Mark As Read Button-->
+        <VBox alignment="BOTTOM_RIGHT" >
+            <Button fx:id="readButton" onAction="#onReadButtonClicked" text="✓" styleClass="read-button-unread" visible="false" />
         </VBox>
     </VBox>
 </StackPane>

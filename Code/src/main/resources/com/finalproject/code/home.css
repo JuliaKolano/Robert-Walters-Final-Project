@@ -21,7 +21,6 @@
     -fx-border-color: #d8b3ff;
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.5, 0, 0);
 }
 
 .separator {
@@ -148,17 +147,44 @@
     -fx-font-size: 25;
     -fx-font-weight: bold;
     -fx-background-radius: 50%;
-    -fx-pref-width: 25;
-    -fx-max-width: 25;
-    -fx-pref-height: 10;
-    -fx-max-height: 10;
-    -fx-alignment: center;
 }
 
 .add-button:hover {
     -fx-background-color: #e6cfff;
     -fx-cursor: hand;
 }
+
+.read-button-unread {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-border-color: #d8b3ff;
+    -fx-border-radius: 50%;
+    -fx-text-fill: #d8b3ff;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.read-button-read {
+    -fx-background-color: #d8b3ff;
+    -fx-background-radius: 50%;
+    -fx-border-color: #d8b3ff;
+    -fx-border-radius: 50%;
+    -fx-text-fill: #272b2b;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.read-button-unread:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #d8b3ff;
+    -fx-text-fill: #272b2b;
+}
+
+.read-button-read:hover {
+    -fx-cursor: hand;
+}
+
+
 
 .snackbar {
     -fx-background-color: #323232;
