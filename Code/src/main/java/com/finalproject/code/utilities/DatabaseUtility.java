@@ -1,6 +1,10 @@
 package com.finalproject.code.utilities;
 
+import com.finalproject.code.classes.LibraryBook;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javafx.application.Platform.exit;
 
@@ -147,6 +151,30 @@ public class DatabaseUtility {
         } else {
             return null;
         }
+    }
+
+    // Fetch all the book data that corresponds to its ID
+    public static List<LibraryBook> getAllBooksByUserId(String userId) throws SQLException {
+        List<LibraryBook> books = new ArrayList<>();
+        // join the UserBook and Book tables
+        String sql = "select title, author, genre, pageCount, coverUrl, isRead from books " +
+                "join userbook on books.id = userbook.book_id where userbook.user_id = ?";
+
+        PreparedStatement selectStatement = connection.prepareStatement(sql);
+        selectStatement.setString(1, userId);
+        ResultSet resultSet = selectStatement.executeQuery();
+
+        // Create library book objects for each result and add them to a list
+        while (resultSet.next()) {
+            books.add(new LibraryBook(resultSet.getString("title"),
+                                    resultSet.getString("author"),
+                                    resultSet.getString("genre"),
+                                    resultSet.getInt("pageCount"),
+                                    resultSet.getString("coverUrl"),
+                                    resultSet.getBoolean("isRead")));
+        }
+
+        return books;
     }
 
 
