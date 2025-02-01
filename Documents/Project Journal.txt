@@ -7,3 +7,4 @@
 29/01/2025 - Obtained all the book info based on a search query, displayed all the books on the search books page, added a no books found message and an add to library button
 30/01/2025 - Added user's library books to the database, created a snackbar to display messages
 31/01/2025 - Did proper error handling so far, added environment variables, wrote tests for the login and signup controllers, created a layout for the library books, updated database to include a isRead column
+01/02/2025 - Displayed the books stored in the database, implemented a button that marks a book as read, ordered the books based on the isRead value
