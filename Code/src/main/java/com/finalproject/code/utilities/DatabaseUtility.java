@@ -138,13 +138,22 @@ public class DatabaseUtility {
         }
     }
 
-    // Fetch the book id that corresponds to its title and author
-    public static String getBookIdByTitleAndAuthor(String title, String author) throws SQLException {
-        String sql = "select id from books where title = ? and author = ?";
+    // Fetch the book id that corresponds to its title and author and the user's ID
+    public static String getBookIdByUsername(String username, String title, String author) throws SQLException {
+        // Get the user's ID first
+        String userId = getUserIdByUsername(username);
+
+        // Get the book based on the user's ID, book's title and author by joining UserBook and Books tables
+        String sql = "select b.id from books b " +
+                    "join userbook ub on b.id = ub.book_id " +
+                    "where ub.user_id = ? and b.title = ? and b.author = ?";
+
         PreparedStatement selectStatement = connection.prepareStatement(sql);
-        selectStatement.setString(1, title);
-        selectStatement.setString(2, author);
+        selectStatement.setString(1, userId);
+        selectStatement.setString(2, title);
+        selectStatement.setString(3, author);
         ResultSet resultSet = selectStatement.executeQuery();
+
         // if the book exists in the database return the book id, if not return null
         if (resultSet.next()) {
             return resultSet.getString("id");
@@ -153,7 +162,24 @@ public class DatabaseUtility {
         }
     }
 
-    // Fetch all the book data that corresponds to its ID
+    // Fetch the book id that corresponds to it title and author
+    public static String getBookIdByTitleAndAuthor(String title, String author) throws SQLException {
+        String sql = "select id from books where title = ? and author = ?";
+
+        PreparedStatement selectStatement = connection.prepareStatement(sql);
+        selectStatement.setString(1, title);
+        selectStatement.setString(2, author);
+        ResultSet resultSet = selectStatement.executeQuery();
+
+        // if the book exists in the database return the book id, if not return null
+        if (resultSet.next()) {
+            return resultSet.getString("id");
+        } else {
+            return null;
+        }
+    }
+
+    // Fetch all the book data that corresponds to the user's ID
     public static List<LibraryBook> getAllBooksByUserId(String userId) throws SQLException {
         List<LibraryBook> books = new ArrayList<>();
         // join the UserBook and Book tables
@@ -206,4 +232,35 @@ public class DatabaseUtility {
     // Delete methods
 
 
+    // Delete a book that corresponds to its title and author and the user's ID
+    public static boolean deleteBook(String username, String title, String author) throws SQLException {
+        // Get the user's ID from the username
+        String userId = getUserIdByUsername(username);
+
+        // Delete the book from the Books table first
+        String deleteBookSql = "delete from userbook where user_id = ? and book_id = " +
+                "(select id from books where title = ? and author = ?)";
+
+        PreparedStatement bookDeleteStatement = connection.prepareStatement(deleteBookSql);
+        bookDeleteStatement.setString(1, userId);
+        bookDeleteStatement.setString(2, title);
+        bookDeleteStatement.setString(3, author);
+        int rowsAffected = bookDeleteStatement.executeUpdate();
+
+        if (rowsAffected > 0) {
+            // Next delete the connection between the book and the user from UserBook table
+            String deleteConnectionSql = "delete from books where title = ? and author = ?";
+
+            PreparedStatement connectionDeleteStatement = connection.prepareStatement(deleteConnectionSql);
+            connectionDeleteStatement.setString(1, title);
+            connectionDeleteStatement.setString(2, author);
+
+            // Return true if more than one row was deleted
+            int rowsDeleted = connectionDeleteStatement.executeUpdate();
+            return rowsDeleted > 0;
+        }
+
+        // Return false if both the book and the connection to the user were not deleted
+        return false;
+    }
 }

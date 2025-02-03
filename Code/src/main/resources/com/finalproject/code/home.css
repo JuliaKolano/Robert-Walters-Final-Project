@@ -154,6 +154,18 @@
     -fx-cursor: hand;
 }
 
+.delete-button {
+    -fx-background-color: #ff6969;
+    -fx-text-fill: white;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.delete-button:hover {
+    -fx-background-color: #ff0000;
+    -fx-cursor: hand;
+}
+
 .read-button-unread {
     -fx-background-color: transparent;
     -fx-background-radius: 50%;
@@ -183,8 +195,6 @@
 .read-button-read:hover {
     -fx-cursor: hand;
 }
-
-
 
 .snackbar {
     -fx-background-color: #323232;

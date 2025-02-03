@@ -83,7 +83,7 @@ public class BookController {
             // Add user and book data to database
             try {
                 // only add it if it's not already in the library
-                if (DatabaseUtility.getBookIdByTitleAndAuthor(title, author) == null) {
+                if (DatabaseUtility.getBookIdByUsername(username, title, author) == null) {
                     DatabaseUtility.createLibraryBook(username, title, author, genre, pageCount, coverUrl, false);
                     if (searchBooksController != null) {
                         searchBooksController.showSnackbar("Book successfully added to library");
