@@ -56,11 +56,10 @@ public class UserLibraryController {
                     bookFlowPane.getChildren().add(bookView);
                 }
             } catch (IOException error) {
-                // TODO problem with loading page
-                System.out.println(error.getMessage());
+                showSnackbar("There was a problem loading the page");
             }
         } else {
-            // TODO no books found
+            showSnackbar("There are no books in the library yet");
         }
     }
 
@@ -76,7 +75,7 @@ public class UserLibraryController {
             books = DatabaseUtility.getAllBooksByUserId(userId);
 
         } catch (SQLException error) {
-            error.printStackTrace(); // TODO change (problem fetching books)
+            showSnackbar("There was a problem loading the books");
         }
 
         return books;
