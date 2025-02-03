@@ -107,7 +107,9 @@ public class LibraryBookController {
                 book.setIsRead(!book.getIsRead());
                 updateReadButton();
             } catch (SQLException error) {
-                error.printStackTrace(); // TODO change to something went wrong
+                if (userLibraryController != null) {
+                    userLibraryController.showSnackbar("Something went wrong");
+                }
             }
         } else {
             if (userLibraryController != null) {
@@ -121,6 +123,7 @@ public class LibraryBookController {
         if (book != null) {
             try {
                 // only delete the book if it's in the database
+                assert User.getInstance() != null;
                 if (DatabaseUtility.getBookIdByUsername(User.getInstance().getUsername(), book.getTitle(), book.getAuthor()) != null) {
                     // Delete the book from the database
                     assert User.getInstance() != null;
@@ -136,7 +139,9 @@ public class LibraryBookController {
                     }
                 }
             } catch (SQLException error) {
-                // TODO there was a problem deleting book
+                if (userLibraryController != null) {
+                    userLibraryController.showSnackbar("There was a problem deleting the book");
+                }
             }
         } else {
             if (userLibraryController != null) {

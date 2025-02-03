@@ -18,7 +18,6 @@
 }
 
 .user-profile ImageView {
-    -fx-border-color: #d8b3ff;
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
 }
