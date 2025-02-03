@@ -28,9 +28,17 @@ public class LibraryBookController {
     private Label bookPages;
     @FXML
     private Button readButton;
+    @FXML
+    private Button deleteButton;
 
     // Variables
     private LibraryBook book;
+    private UserLibraryController userLibraryController;
+
+    // Dependency injection used to access the methods from User Library Controller
+    public void setUserLibraryController(UserLibraryController userLibraryController) {
+        this.userLibraryController = userLibraryController;
+    }
 
     public void setLibraryBookData(LibraryBook book) {
         this.book = book;
@@ -51,36 +59,6 @@ public class LibraryBookController {
         updateReadButton();
     }
 
-    // Display the mark as read button on hover (only when not enabled)
-    @FXML
-    private void onMouseEnter() {
-        if (!book.getIsRead()) {
-            readButton.setVisible(true);
-        }
-    }
-
-    // Hide the mark as read button when hovering stops (only when not enabled)
-    @FXML
-    private void onMouseExit() {
-        if (!book.getIsRead()) {
-            readButton.setVisible(false);
-        }
-    }
-
-    @FXML
-    private void onReadButtonClicked() {
-        try {
-            // Change the isRead to the opposite value on every click
-            assert User.getInstance() != null;
-            DatabaseUtility.updateIsReadOfBook(User.getInstance().getUsername(), book.getTitle(), book.getAuthor(), !book.getIsRead());
-            // Adjust the book object's isRead value accordingly too
-            book.setIsRead(!book.getIsRead());
-            updateReadButton();
-        } catch (SQLException error) {
-            error.printStackTrace(); // TODO change to something went wrong
-        }
-    }
-
     // Set the read button's visibility and style
     private void updateReadButton() {
         // when is enabled
@@ -88,11 +66,83 @@ public class LibraryBookController {
             readButton.getStyleClass().removeAll("read-button-unread");
             readButton.getStyleClass().add("read-button-read");
             readButton.setVisible(true);
-        // when is disabled
+            // when is disabled
         } else {
             readButton.getStyleClass().removeAll("read-button-read");
             readButton.getStyleClass().add("read-button-unread");
             readButton.setVisible(false);
         }
     }
+
+    // Display the buttons on hover
+    @FXML
+    private void onMouseEnter() {
+        // only when the button is enabled
+        if (!book.getIsRead()) {
+            readButton.setVisible(true);
+        }
+
+        deleteButton.setVisible(true);
+    }
+
+    // Hide the buttons when hovering stops
+    @FXML
+    private void onMouseExit() {
+        // only when the button is disabled
+        if (!book.getIsRead()) {
+            readButton.setVisible(false);
+        }
+
+        deleteButton.setVisible(false);
+    }
+
+    @FXML
+    private void onReadButtonClicked() {
+        if (book != null) {
+            try {
+                // Change the isRead to the opposite value on every click
+                assert User.getInstance() != null;
+                DatabaseUtility.updateIsReadOfBook(User.getInstance().getUsername(), book.getTitle(), book.getAuthor(), !book.getIsRead());
+                // Adjust the book object's isRead value accordingly too
+                book.setIsRead(!book.getIsRead());
+                updateReadButton();
+            } catch (SQLException error) {
+                error.printStackTrace(); // TODO change to something went wrong
+            }
+        } else {
+            if (userLibraryController != null) {
+                userLibraryController.showSnackbar("There was a problem updating the read status the book");
+            }
+        }
+    }
+
+    @FXML
+    private void onDeleteButtonClicked() {
+        if (book != null) {
+            try {
+                // only delete the book if it's in the database
+                if (DatabaseUtility.getBookIdByUsername(User.getInstance().getUsername(), book.getTitle(), book.getAuthor()) != null) {
+                    // Delete the book from the database
+                    assert User.getInstance() != null;
+                    DatabaseUtility.deleteBook(User.getInstance().getUsername(), book.getTitle(), book.getAuthor());
+                    if (userLibraryController != null) {
+                        userLibraryController.showSnackbar("Book removed from the library");
+                        // fetch all the books again to make the deleted one disappear
+                        userLibraryController.populateUserLibrary();
+                    }
+                } else {
+                    if (userLibraryController != null) {
+                        userLibraryController.showSnackbar("Book was already removed");
+                    }
+                }
+            } catch (SQLException error) {
+                // TODO there was a problem deleting book
+            }
+        } else {
+            if (userLibraryController != null) {
+                userLibraryController.showSnackbar("There was a problem deleting the book");
+            }
+        }
+    }
+
 }

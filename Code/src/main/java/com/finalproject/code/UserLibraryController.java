@@ -3,11 +3,13 @@ package com.finalproject.code;
 import com.finalproject.code.classes.LibraryBook;
 import com.finalproject.code.classes.User;
 import com.finalproject.code.utilities.DatabaseUtility;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,8 +27,14 @@ public class UserLibraryController {
 
     @FXML
     public void initialize() {
+        populateUserLibrary();
+    }
 
-        // Populate the user's book library
+    // Populate the user's book library
+    public void populateUserLibrary() {
+        // Clean out all the books before loading them again
+        bookFlowPane.getChildren().clear();
+
         List<LibraryBook> books = getLibraryBooks();
         // Only try to display the books if there are any in the database
         if (!books.isEmpty()) {
@@ -41,7 +49,8 @@ public class UserLibraryController {
                     LibraryBookController controller = loader.getController();
                     controller.setLibraryBookData(book);
 
-                    // TODO pass the parent controller for the snackbar later
+                    // Pass the reference to itself to the Library Book Controller
+                    controller.setUserLibraryController(this);
 
                     // Add the populated book view to the flow pane
                     bookFlowPane.getChildren().add(bookView);
@@ -71,5 +80,32 @@ public class UserLibraryController {
         }
 
         return books;
+    }
+
+    public void showSnackbar(String message) {
+
+        // Set the message on the snackbar
+        snackbarLabel.setText(message);
+
+        // Fade-in animation
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), snackbarLabel);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+
+        // Set up a new thread to show the snackbar
+        fadeIn.setOnFinished(_ -> {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000); // Snackbar will show for two seconds
+                } catch (InterruptedException ignore) {}
+
+                // Fade-out animation
+                FadeTransition fadeOut = new FadeTransition(Duration.millis(300), snackbarLabel);
+                fadeOut.setFromValue(1);
+                fadeOut.setToValue(0);
+                fadeOut.play();
+            }).start();
+        });
+        fadeIn.play();
     }
 }
