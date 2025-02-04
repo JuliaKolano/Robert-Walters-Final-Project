@@ -3,8 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.finalproject.code.ReadingGoalController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal" fx:controller="com.finalproject.code.ReadingGoalController">
     <!--    Left side menu-->
     <left>
         <fx:include source="side-menu-view.fxml" />
@@ -13,7 +12,21 @@
     <!--    Main content-->
     <center>
         <StackPane styleClass="main-content">
-            <Label text="Reading Goal" styleClass="text"/>
+            <VBox alignment="CENTER" spacing="60" styleClass="container">
+                <VBox spacing="20">
+                    <Label styleClass="label" text="Provide your reading goal:" />
+                    <TextField promptText="Reading Goal (In pages)" styleClass="reading-goal" />
+                    <Label styleClass="error-message" text="This is an error message" visible="false"/>
+                </VBox>
+                <VBox spacing="40">
+                    <HBox spacing="20">
+                        <Label styleClass="label" text="Have you reached your reading goal today? " />
+                        <ToggleButton fx:id="readingGoalToggle" text="No" onMouseClicked="#onReadingGoalToggled" styleClass="reading-goal-toggle"/>
+                    </HBox>
+                    <Label styleClass="label" text="You have / have not reached your reading goal of (number of pages) for today. Well done! / You can still do it!" wrapText="true" />
+                </VBox>
+            </VBox>
+
         </StackPane>
     </center>
 </BorderPane>
