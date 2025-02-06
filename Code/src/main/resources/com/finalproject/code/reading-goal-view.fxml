@@ -13,17 +13,24 @@
     <center>
         <StackPane styleClass="main-content">
             <VBox alignment="CENTER" spacing="60" styleClass="container">
+
+<!--                Reading Goal Input-->
                 <VBox spacing="20">
                     <Label styleClass="label" text="Provide your reading goal:" />
-                    <TextField promptText="Reading Goal (In pages)" styleClass="reading-goal" />
-                    <Label styleClass="error-message" text="This is an error message" visible="false"/>
+                    <StackPane alignment="CENTER_LEFT" prefWidth="400" maxWidth="400">
+                        <TextField fx:id="readingGoalField" promptText="Reading Goal (In pages)" styleClass="reading-goal" />
+                        <Button onAction="#onUpdateButtonClicked" text="Update" styleClass="reading-goal-button" StackPane.alignment="CENTER_RIGHT"/>
+                    </StackPane>
+                    <Label fx:id="errorMessage" styleClass="error-message" text="This is an error message" visible="false"/>
                 </VBox>
+
+<!--                Reading Goal Status-->
                 <VBox spacing="40">
-                    <HBox spacing="20">
+                    <HBox fx:id="readingGoalReached" spacing="20">
                         <Label styleClass="label" text="Have you reached your reading goal today? " />
-                        <ToggleButton fx:id="readingGoalToggle" text="No" onMouseClicked="#onReadingGoalToggled" styleClass="reading-goal-toggle"/>
+                        <ToggleButton fx:id="readingGoalToggle" onMouseClicked="#onReadingGoalToggled" styleClass="reading-goal-toggle"/>
                     </HBox>
-                    <Label styleClass="label" text="You have / have not reached your reading goal of (number of pages) for today. Well done! / You can still do it!" wrapText="true" />
+                    <Label fx:id="readingGoalMessage" styleClass="label" wrapText="true" />
                 </VBox>
             </VBox>
 

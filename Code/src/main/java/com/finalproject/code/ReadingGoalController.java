@@ -1,30 +1,187 @@
 package com.finalproject.code;
 
+import com.finalproject.code.classes.ReadingGoal;
+import com.finalproject.code.classes.User;
+import com.finalproject.code.utilities.DatabaseUtility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class ReadingGoalController {
+    // References to UI elements
+    @FXML
+    private TextField readingGoalField;
     @FXML
     private ToggleButton readingGoalToggle;
+    @FXML
+    private HBox readingGoalReached;
+    @FXML
+    private Label readingGoalMessage;
+    @FXML
+    private Label errorMessage;
 
     @FXML
     private void onReadingGoalToggled() {
+        // Change the text depending on the answer toggled
+        // Update the reading goal's isReached value in the database accordingly
         if (readingGoalToggle.isSelected()) {
-            readingGoalToggle.setText("Yes");
+            try {
+                readingGoalToggle.setText("Yes");
+
+                assert User.getInstance() != null;
+                DatabaseUtility.updateIsReachedAndSetDateOfReadingGoal(User.getInstance().getUsername(), true);
+
+                // Refresh the page
+                setUpPage();
+
+            } catch (SQLException e) {
+                // TODO Something went wrong when updating the reading goal
+            }
         } else {
-            readingGoalToggle.setText("No");
+            try {
+                readingGoalToggle.setText("No");
+
+                assert User.getInstance() != null;
+                DatabaseUtility.updateIsReachedAndSetDateOfReadingGoal(User.getInstance().getUsername(), false);
+
+                // Refresh the page
+                setUpPage();
+
+            } catch (SQLException e) {
+                // TODO Something went wrong when updating the reading goal
+            }
+        }
+    }
+
+    @FXML
+    public void initialize() {
+        setUpPage();
+    }
+
+    @FXML
+    private void onUpdateButtonClicked() {
+        // Get the text input from the input box
+        String readingGoal = readingGoalField.getText().trim();
+
+        // Clear error messages
+        errorMessage.setVisible(false);
+
+        // only continue if there was input from the user
+        if (!readingGoal.isEmpty()) {
+
+            // Make sure user input is a number
+            try {
+                int readingGoalInt = Integer.parseInt(readingGoal);
+
+                // Make sure that the reading goal is greater than zero
+                if (readingGoalInt > 0) {
+                    try {
+                        // Update the page count, reached status, and date set of the reading goal in database
+                        assert User.getInstance() != null;
+                        DatabaseUtility.updatePageCountOfReadingGoal(User.getInstance().getUsername(), readingGoalInt);
+                        DatabaseUtility.updateIsReachedAndSetDateOfReadingGoal(User.getInstance().getUsername(), false);
+                        setUpPage();
+
+                        // TODO add a success message and update the page again
+                    } catch (SQLException error) {
+                        error.printStackTrace();
+                        // TODO there was a problem updating the reading goal
+                    }
+                } else {
+                    errorMessage.setVisible(true);
+                    errorMessage.setText("The reading goal must be greater than 0");
+                }
+            } catch (NumberFormatException error) {
+                errorMessage.setText("Please enter a number");
+                errorMessage.setVisible(true);
+            }
+        }
+    }
+
+    // Set up / Refresh the whole page
+    private void setUpPage() {
+        try {
+            // Get the user's reading goal information
+            assert User.getInstance() != null;
+            ReadingGoal readingGoal = DatabaseUtility.getReadingGoal(User.getInstance().getUsername());
+
+            // Check if the reading goal object exists
+            if (readingGoal != null) {
+
+                // Show a different page depending on if the reading goal was set up yet or not
+                if (readingGoal.getPageCount() == 0) {
+                    initializeWithoutReadingGoal();
+                } else {
+                    initializeWithReadingGoal(readingGoal);
+                }
+
+            } else {
+                System.out.println("Unable to obtain the reading goal information");
+                // TODO Unable to obtain the reading goal information
+            }
+        } catch (SQLException error) {
+            error.printStackTrace();
+            // TODO Something went wrong when loading information
+        }
+    }
+
+    // Page set up without reading goal
+    private void initializeWithoutReadingGoal() {
+        readingGoalReached.setVisible(false);
+        readingGoalMessage.setText("You have not set up your reading goal yet. You can do it using the text box above :)");
+    }
+
+    // Page set up with reading goal
+    private void initializeWithReadingGoal(ReadingGoal readingGoal) {
+        setUpReadingGoalReached(readingGoal);
+        setUpReadingGoalMessage(readingGoal);
+    }
+
+    private void setUpReadingGoalReached(ReadingGoal readingGoal) {
+        // If the reading goal was not updated on the same day, reset the goal status (since it's a daily goal)
+        if (!Objects.equals(readingGoal.getDateSet(), LocalDate.now())) {
+            resetReadingGoalReached();
+        }
+
+        // Change the toggle status based on if the reading goal is reached
+        readingGoalToggle.setSelected(readingGoal.isReached());
+        readingGoalToggle.setText(readingGoal.isReached() ? "Yes" : "No");
+    }
+
+    // Display an appropriate message depending on the reading goal status
+    private void setUpReadingGoalMessage(ReadingGoal readingGoal) {
+        if (!readingGoal.isReached()) {
+            readingGoalMessage.setText("You have not yet reached your goal of " + readingGoal.getPageCount() + " read pages today." +
+                    " You can still do it!");
+        } else {
+            readingGoalMessage.setText("You have reached your daily goal of " + readingGoal.getPageCount() + " read pages." +
+                    " Well done!");
+        }
+    }
+
+    // Reset the daily reading goal
+    private void resetReadingGoalReached() {
+        try {
+            assert User.getInstance() != null;
+            DatabaseUtility.updateIsReachedOfReadingGoal(User.getInstance().getUsername(), false);
+        } catch (SQLException error) {
+            error.printStackTrace();
+            // TODO There was a problem updating the reading goal status
         }
     }
 }
