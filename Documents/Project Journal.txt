@@ -9,4 +9,5 @@
 31/01/2025 - Did proper error handling so far, added environment variables, wrote tests for the login and signup controllers, created a layout for the library books, updated database to include a isRead column
 01/02/2025 - Displayed the books stored in the database, implemented a button that marks a book as read, ordered the books based on the isRead value
 03/02/2025 - Implemented the delete from library button, displayed a no books in the library yet message
-04/02/2025 - Created the layout for the reading goal page.
+04/02/2025 - Created the layout for the reading goal page
+06/02/2025 - Implemented the reading goal functionality
