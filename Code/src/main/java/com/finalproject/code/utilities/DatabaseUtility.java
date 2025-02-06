@@ -1,10 +1,13 @@
 package com.finalproject.code.utilities;
 
 import com.finalproject.code.classes.LibraryBook;
+import com.finalproject.code.classes.ReadingGoal;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 import static javafx.application.Platform.exit;
 
@@ -58,6 +61,16 @@ public class DatabaseUtility {
         passwordInsertStatement.setString(3, password);
         passwordInsertStatement.executeUpdate();
         passwordInsertStatement.close();
+
+        // Add the user id and the initial reading goal data to the ReadingGoal table
+        String readingGoalSql = "insert into readinggoals (user_id, pageCount, isReached, dateSet) values (?, ?, ?, ?)";
+        PreparedStatement readingGoalInsertStatement = connection.prepareStatement(readingGoalSql);
+        readingGoalInsertStatement.setString(1, userId);
+        readingGoalInsertStatement.setInt(2, 0); // Reading goal wouldn't have been set, so set a default value
+        readingGoalInsertStatement.setBoolean(3, false); // Reading goal not set yet, so is also not reached
+        readingGoalInsertStatement.setDate(4, Date.valueOf(LocalDate.now())); // Get the date of account creation
+        readingGoalInsertStatement.executeUpdate();
+        readingGoalInsertStatement.close();
     }
 
     // Creates a book associated with (added to) the user's library
@@ -204,6 +217,29 @@ public class DatabaseUtility {
         return books;
     }
 
+    // Fetch all the information about the reading goal based on user's ID
+    public static ReadingGoal getReadingGoal(String username) throws SQLException {
+        ReadingGoal readingGoal = null;
+
+        // Get the user's ID first
+        String userId = getUserIdByUsername(username);
+
+        // Get the reading goal that corresponds to the user ID
+        String sql = "select pageCount, isReached, dateSet from readinggoals where user_id = ?";
+        PreparedStatement selectStatement = connection.prepareStatement(sql);
+        selectStatement.setString(1, userId);
+        ResultSet resultSet = selectStatement.executeQuery();
+
+        // Create the ReadingGoal object with the data returned from database
+        if (resultSet.next()) {
+            readingGoal = new ReadingGoal(resultSet.getInt("pageCount"),
+                    resultSet.getBoolean("isReached"),
+                    resultSet.getDate("dateSet").toLocalDate());
+        }
+
+        return readingGoal;
+    }
+
 
     // Update methods
 
@@ -226,6 +262,46 @@ public class DatabaseUtility {
         // Return true if more than one row was affected
         int rowsUpdated = updateStatement.executeUpdate();
         return rowsUpdated > 0;
+    }
+
+    // Update the isReached value of a reading goal that corresponds to the user's ID
+    public static void updateIsReachedOfReadingGoal(String username, boolean isReached) throws SQLException {
+        // Get the user's ID from the username first
+        String userId = getUserIdByUsername(username);
+
+        String sql = "update readinggoals set isReached = ? where user_id = ?";
+        PreparedStatement updateStatement = connection.prepareStatement(sql);
+        updateStatement.setBoolean(1, isReached);
+        updateStatement.setString(2, userId);
+        updateStatement.executeUpdate();
+        updateStatement.close();
+    }
+
+    // Update the isReached and dateSet values of a reading goal that corresponds to the user's ID
+    public static void updateIsReachedAndSetDateOfReadingGoal(String username, boolean isReached) throws SQLException {
+        // Get the user's ID from the username first
+        String userId = getUserIdByUsername(username);
+
+        String sql = "update readinggoals set isReached = ?, dateSet = ? where user_id = ?";
+        PreparedStatement updateStatement = connection.prepareStatement(sql);
+        updateStatement.setBoolean(1, isReached);
+        updateStatement.setDate(2, Date.valueOf(LocalDate.now()));
+        updateStatement.setString(3, userId);
+        updateStatement.executeUpdate();
+        updateStatement.close();
+    }
+
+    // Update the pageCount of a reading goal that corresponds to the user's ID
+    public static void updatePageCountOfReadingGoal(String username, int pageCount) throws SQLException {
+        // Get the user's ID from the username first
+        String userId = getUserIdByUsername(username);
+
+        String sql = "update readinggoals set pageCount = ? where user_id = ?";
+        PreparedStatement updateStatement = connection.prepareStatement(sql);
+        updateStatement.setInt(1, pageCount);
+        updateStatement.setString(2, userId);
+        updateStatement.executeUpdate();
+        updateStatement.close();
     }
 
 

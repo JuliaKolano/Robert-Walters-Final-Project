@@ -1,5 +1,3 @@
-use BookLibraryDB;
-
 create table Books (
 	id int identity(1,1) primary key,
 	title varchar(80) not null,
