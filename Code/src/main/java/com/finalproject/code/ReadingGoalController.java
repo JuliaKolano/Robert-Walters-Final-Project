@@ -88,8 +88,8 @@ public class ReadingGoalController {
             try {
                 int readingGoalInt = Integer.parseInt(readingGoal);
 
-                // Make sure that the reading goal is greater than zero
-                if (readingGoalInt > 0) {
+                // Make sure that the reading goal is greater than zero and smaller than max range of smallint (to protect the database)
+                if (readingGoalInt > 0 && readingGoalInt < 32_767) {
                     try {
                         // Update the page count, reached status, and date set of the reading goal in database
                         assert User.getInstance() != null;
@@ -102,12 +102,15 @@ public class ReadingGoalController {
                         error.printStackTrace();
                         // TODO there was a problem updating the reading goal
                     }
-                } else {
+                } else if (readingGoalInt <= 0) {
                     errorMessage.setVisible(true);
                     errorMessage.setText("The reading goal must be greater than 0");
+                } else {
+                    errorMessage.setVisible(true);
+                    errorMessage.setText("The reading goal cannot be that large");
                 }
             } catch (NumberFormatException error) {
-                errorMessage.setText("Please enter a number");
+                errorMessage.setText("Please enter a sensible number");
                 errorMessage.setVisible(true);
             }
         }
@@ -166,11 +169,21 @@ public class ReadingGoalController {
     // Display an appropriate message depending on the reading goal status
     private void setUpReadingGoalMessage(ReadingGoal readingGoal) {
         if (!readingGoal.isReached()) {
-            readingGoalMessage.setText("You have not yet reached your goal of " + readingGoal.getPageCount() + " read pages today." +
-                    " You can still do it!");
+            if (readingGoal.getPageCount() == 1) {
+                readingGoalMessage.setText("You have not yet reached your goal of 1 read page today." +
+                        " You can still do it!");
+            } else {
+                readingGoalMessage.setText("You have not yet reached your goal of " + readingGoal.getPageCount() + " read pages today." +
+                        " You can still do it!");
+            }
         } else {
-            readingGoalMessage.setText("You have reached your daily goal of " + readingGoal.getPageCount() + " read pages." +
-                    " Well done!");
+            if (readingGoal.getPageCount() == 1) {
+                readingGoalMessage.setText("You have reached your daily goal of 1 read page." +
+                        " Well done!");
+            } else {
+                readingGoalMessage.setText("You have reached your daily goal of " + readingGoal.getPageCount() + " read pages." +
+                        " Well done!");
+            }
         }
     }
 
@@ -179,6 +192,7 @@ public class ReadingGoalController {
         try {
             assert User.getInstance() != null;
             DatabaseUtility.updateIsReachedOfReadingGoal(User.getInstance().getUsername(), false);
+            setUpPage();
         } catch (SQLException error) {
             error.printStackTrace();
             // TODO There was a problem updating the reading goal status

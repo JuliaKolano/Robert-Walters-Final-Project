@@ -16,7 +16,7 @@
 
 <!--                Reading Goal Input-->
                 <VBox spacing="20">
-                    <Label styleClass="label" text="Provide your reading goal:" />
+                    <Label styleClass="reading-goal-label" text="Provide your reading goal:" />
                     <StackPane alignment="CENTER_LEFT" prefWidth="400" maxWidth="400">
                         <TextField fx:id="readingGoalField" promptText="Reading Goal (In pages)" styleClass="reading-goal" />
                         <Button onAction="#onUpdateButtonClicked" text="Update" styleClass="reading-goal-button" StackPane.alignment="CENTER_RIGHT"/>
@@ -27,10 +27,10 @@
 <!--                Reading Goal Status-->
                 <VBox spacing="40">
                     <HBox fx:id="readingGoalReached" spacing="20">
-                        <Label styleClass="label" text="Have you reached your reading goal today? " />
+                        <Label styleClass="reading-goal-label" text="Have you reached your reading goal today? " />
                         <ToggleButton fx:id="readingGoalToggle" onMouseClicked="#onReadingGoalToggled" styleClass="reading-goal-toggle"/>
                     </HBox>
-                    <Label fx:id="readingGoalMessage" styleClass="label" wrapText="true" />
+                    <Label fx:id="readingGoalMessage" styleClass="reading-goal-label" wrapText="true" />
                 </VBox>
             </VBox>
 
