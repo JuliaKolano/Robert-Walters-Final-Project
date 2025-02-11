@@ -1,5 +1,4 @@
 import com.finalproject.code.LoginController;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +13,8 @@ public class LoginTest {
 
     // Set up the UI and Controller references
     private LoginController loginController;
-    @FXML
     private TextField usernameField;
-    @FXML
     private TextField passwordField;
-    @FXML
     private Label errorMessage;
 
     // Set up JavaFX before running the tests

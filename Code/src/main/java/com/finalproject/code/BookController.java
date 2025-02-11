@@ -15,18 +15,19 @@ import java.util.Objects;
 public class BookController {
 
     // Reference to the UI components
+    // Set to public for tests to work
     @FXML
-    private ImageView bookCover;
+    public ImageView bookCover;
     @FXML
-    private Label bookTitle;
+    public Label bookTitle;
     @FXML
-    private Label bookAuthor;
+    public Label bookAuthor;
     @FXML
-    private Label bookGenre;
+    public Label bookGenre;
     @FXML
-    private Label bookPages;
+    public Label bookPages;
     @FXML
-    private Button addButton;
+    public Button addButton;
 
     // Variables
     private Book book;
@@ -55,18 +56,18 @@ public class BookController {
 
     // Display the add button on hover
     @FXML
-    private void onMouseEnter() {
+    public void onMouseEnter() {
         addButton.setVisible(true);
     }
 
     // Hide the add button when hovering stops
     @FXML
-    private void onMouseExit() {
+    public void onMouseExit() {
         addButton.setVisible(false);
     }
 
     @FXML
-    private void onAddButtonClicked() {
+    public void onAddButtonClicked() {
         // If the book clicked on exists add it to the user's library
         if (book != null) {
 
