@@ -32,6 +32,9 @@
                     </HBox>
                     <Label fx:id="readingGoalMessage" styleClass="reading-goal-label" wrapText="true" />
                 </VBox>
+
+                <!--                Snackbar Message-->
+                <Label fx:id="snackbarLabel" text="This is a snackbar message!" styleClass="snackbar" maxHeight="5" prefWidth="770" minWidth="770"/>
             </VBox>
 
         </StackPane>
