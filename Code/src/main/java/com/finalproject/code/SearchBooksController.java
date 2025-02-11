@@ -24,12 +24,13 @@ public class SearchBooksController {
     String googleBooksApiKey = System.getenv("GOOGLE_BOOKS_API_KEY");
 
     // Reference to the UI components
+    // Set to public for tests to work
     @FXML
-    private TextField searchBar;
+    public TextField searchBar;
     @FXML
-    private FlowPane bookFlowPane;
+    public FlowPane bookFlowPane;
     @FXML
-    private Label snackbarLabel;
+    public Label snackbarLabel;
 
     @FXML
     public void searchBooks() {
