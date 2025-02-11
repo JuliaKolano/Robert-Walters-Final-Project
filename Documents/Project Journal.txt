@@ -11,3 +11,4 @@
 03/02/2025 - Implemented the delete from library button, displayed a no books in the library yet message
 04/02/2025 - Created the layout for the reading goal page
 06/02/2025 - Implemented the reading goal functionality
+11/02/2025 - Fixed Bugs
