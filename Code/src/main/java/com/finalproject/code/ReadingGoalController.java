@@ -3,6 +3,7 @@ package com.finalproject.code;
 import com.finalproject.code.classes.ReadingGoal;
 import com.finalproject.code.classes.User;
 import com.finalproject.code.utilities.DatabaseUtility;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +36,8 @@ public class ReadingGoalController {
     private Label readingGoalMessage;
     @FXML
     private Label errorMessage;
+    @FXML
+    private Label snackbarLabel;
 
     @FXML
     private void onReadingGoalToggled() {
@@ -50,7 +54,7 @@ public class ReadingGoalController {
                 setUpPage();
 
             } catch (SQLException e) {
-                // TODO Something went wrong when updating the reading goal
+                showSnackbar("Something went wrong when updating the reading goal");
             }
         } else {
             try {
@@ -63,7 +67,7 @@ public class ReadingGoalController {
                 setUpPage();
 
             } catch (SQLException e) {
-                // TODO Something went wrong when updating the reading goal
+                showSnackbar("Something went wrong when updating the reading goal");
             }
         }
     }
@@ -97,10 +101,8 @@ public class ReadingGoalController {
                         DatabaseUtility.updateIsReachedAndSetDateOfReadingGoal(User.getInstance().getUsername(), false);
                         setUpPage();
 
-                        // TODO add a success message and update the page again
                     } catch (SQLException error) {
-                        error.printStackTrace();
-                        // TODO there was a problem updating the reading goal
+                        showSnackbar("Something went wrong when updating the reading goal");
                     }
                 } else if (readingGoalInt <= 0) {
                     errorMessage.setVisible(true);
@@ -134,12 +136,10 @@ public class ReadingGoalController {
                 }
 
             } else {
-                System.out.println("Unable to obtain the reading goal information");
-                // TODO Unable to obtain the reading goal information
+                showSnackbar("Unable to obtain the reading goal information");
             }
         } catch (SQLException error) {
-            error.printStackTrace();
-            // TODO Something went wrong when loading information
+            showSnackbar("Something went wrong when loading the information");
         }
     }
 
@@ -194,8 +194,34 @@ public class ReadingGoalController {
             DatabaseUtility.updateIsReachedOfReadingGoal(User.getInstance().getUsername(), false);
             setUpPage();
         } catch (SQLException error) {
-            error.printStackTrace();
-            // TODO There was a problem updating the reading goal status
+            showSnackbar("There was a problem updating the reading goal");
         }
+    }
+
+    public void showSnackbar(String message) {
+
+        // Set the message on the snackbar
+        snackbarLabel.setText(message);
+
+        // Fade-in animation
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), snackbarLabel);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+
+        // Set up a new thread to show the snackbar
+        fadeIn.setOnFinished(_ -> {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000); // Snackbar will show for two seconds
+                } catch (InterruptedException ignore) {}
+
+                // Fade-out animation
+                FadeTransition fadeOut = new FadeTransition(Duration.millis(300), snackbarLabel);
+                fadeOut.setFromValue(1);
+                fadeOut.setToValue(0);
+                fadeOut.play();
+            }).start();
+        });
+        fadeIn.play();
     }
 }
