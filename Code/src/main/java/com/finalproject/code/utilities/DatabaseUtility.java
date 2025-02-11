@@ -1,5 +1,6 @@
 package com.finalproject.code.utilities;
 
+import com.finalproject.code.Application;
 import com.finalproject.code.classes.LibraryBook;
 import com.finalproject.code.classes.ReadingGoal;
 
@@ -8,8 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
-
-import static javafx.application.Platform.exit;
 
 public class DatabaseUtility {
 
@@ -31,7 +30,7 @@ public class DatabaseUtility {
                 connection = DriverManager.getConnection(url, user, password);
             } catch (SQLException error) {
                 // If connection to the database can't be made, close the application
-                exit();
+                Application.showAlert("Database error", "There was a problem connecting to the database");
             }
         }
         return connection;
