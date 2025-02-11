@@ -1,9 +1,13 @@
 package com.finalproject.code;
 
 import com.finalproject.code.utilities.DatabaseUtility;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,7 +21,11 @@ public class Application extends javafx.application.Application {
     // Set up the database connection when application starts
     @Override
     public void init() {
-        DatabaseUtility.getConnection();
+        try {
+            DatabaseUtility.getConnection();
+        } catch (Exception e) {
+            Application.showAlert("Database error", "There was a problem connecting to the database");
+        }
     }
 
     // Set up the stage and load the first scene when after application started
@@ -32,7 +40,7 @@ public class Application extends javafx.application.Application {
             stage.show();
         } catch (IOException error) {
             // If the first scene cannot be loaded, close the application
-            exit();
+            showAlert("Application couldn't start", "An error occurred while trying to start the application.");
         }
     }
 
@@ -46,8 +54,24 @@ public class Application extends javafx.application.Application {
                 connection.close();
             }
         } catch (SQLException error) {
-            System.out.println(error.getMessage());
+            showAlert("Database error", "An error occurred while trying to close the database.");
         }
+    }
+
+    // A pop-up alert if a fatal error occurs
+    public static void showAlert(String header, String content) {
+        Platform.runLater(() -> {
+            // Set up the alert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(header);
+            alert.setContentText(content);
+
+            // Close the alert and the application
+            alert.showAndWait();
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     // Launch the application
