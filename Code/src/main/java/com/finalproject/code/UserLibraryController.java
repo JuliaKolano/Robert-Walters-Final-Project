@@ -20,10 +20,11 @@ import java.util.List;
 public class UserLibraryController {
 
     // Reference to the UI components
+    // Set to public for tests to work
     @FXML
-    private FlowPane bookFlowPane;
+    public FlowPane bookFlowPane;
     @FXML
-    private Label snackbarLabel;
+    public Label snackbarLabel;
 
     @FXML
     public void initialize() {
