@@ -9,7 +9,7 @@ import static javafx.application.Platform.runLater;
 import static javafx.application.Platform.startup;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SideMenuTest extends ApplicationTest{
+public class SideMenuTest {
 
     // Set up the UI and Controller references
     private SideMenuController controller;
