@@ -13,13 +13,9 @@ public class SignUpTest {
 
     // Set up all the UI and Controller references
     private SignUpController signUpController;
-    @FXML
     private TextField usernameField;
-    @FXML
     private TextField passwordField;
-    @FXML
     private TextField repeatPasswordField;
-    @FXML
     private Label errorMessage;
 
     // Set up JavaFX before running the tests
