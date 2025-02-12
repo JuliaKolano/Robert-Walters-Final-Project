@@ -12,3 +12,4 @@
 04/02/2025 - Created the layout for the reading goal page
 06/02/2025 - Implemented the reading goal functionality
 11/02/2025 - Fixed Bugs, added snackbar error messages, created an alert box for fatal errors, uploaded database backup and scripts, did some of the testing
+12/02/2025 - Finished the unit testing and performed the final user testing
