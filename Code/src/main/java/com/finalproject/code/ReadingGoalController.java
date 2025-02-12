@@ -26,21 +26,22 @@ import java.util.Objects;
 
 public class ReadingGoalController {
     // References to UI elements
+    // Set to public for tests to work
     @FXML
-    private TextField readingGoalField;
+    public TextField readingGoalField;
     @FXML
-    private ToggleButton readingGoalToggle;
+    public ToggleButton readingGoalToggle;
     @FXML
-    private HBox readingGoalReached;
+    public HBox readingGoalReached;
     @FXML
-    private Label readingGoalMessage;
+    public Label readingGoalMessage;
     @FXML
-    private Label errorMessage;
+    public Label errorMessage;
     @FXML
-    private Label snackbarLabel;
+    public Label snackbarLabel;
 
     @FXML
-    private void onReadingGoalToggled() {
+    public void onReadingGoalToggled() {
         // Change the text depending on the answer toggled
         // Update the reading goal's isReached value in the database accordingly
         if (readingGoalToggle.isSelected()) {
@@ -78,7 +79,7 @@ public class ReadingGoalController {
     }
 
     @FXML
-    private void onUpdateButtonClicked() {
+    public void onUpdateButtonClicked() {
         // Get the text input from the input box
         String readingGoal = readingGoalField.getText().trim();
 
