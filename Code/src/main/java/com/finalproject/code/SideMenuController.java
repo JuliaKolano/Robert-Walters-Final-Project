@@ -17,12 +17,13 @@ import java.util.Objects;
 public class SideMenuController {
 
     // Reference to the UI components
+    // Set to public for tests to work
     @FXML
-    private ImageView profilePicture;
+    public ImageView profilePicture;
     @FXML
-    private Label userName;
+    public Label userName;
     @FXML
-    private Label errorMessage;
+    public Label errorMessage;
 
     @FXML
     public void initialize() {
