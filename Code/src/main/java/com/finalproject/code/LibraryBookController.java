@@ -16,20 +16,21 @@ import java.util.Objects;
 public class LibraryBookController {
 
     // Reference to the UI components
+    // Set to public for tests to work
     @FXML
-    private ImageView bookCover;
+    public ImageView bookCover;
     @FXML
-    private Label bookTitle;
+    public Label bookTitle;
     @FXML
-    private Label bookAuthor;
+    public Label bookAuthor;
     @FXML
-    private Label bookGenre;
+    public Label bookGenre;
     @FXML
-    private Label bookPages;
+    public Label bookPages;
     @FXML
-    private Button readButton;
+    public Button readButton;
     @FXML
-    private Button deleteButton;
+    public Button deleteButton;
 
     // Variables
     private LibraryBook book;
@@ -76,7 +77,7 @@ public class LibraryBookController {
 
     // Display the buttons on hover
     @FXML
-    private void onMouseEnter() {
+    public void onMouseEnter() {
         // only when the button is enabled
         if (!book.getIsRead()) {
             readButton.setVisible(true);
@@ -87,7 +88,7 @@ public class LibraryBookController {
 
     // Hide the buttons when hovering stops
     @FXML
-    private void onMouseExit() {
+    public void onMouseExit() {
         // only when the button is disabled
         if (!book.getIsRead()) {
             readButton.setVisible(false);
@@ -97,7 +98,7 @@ public class LibraryBookController {
     }
 
     @FXML
-    private void onReadButtonClicked() {
+    public void onReadButtonClicked() {
         if (book != null) {
             try {
                 // Change the isRead to the opposite value on every click
@@ -119,7 +120,7 @@ public class LibraryBookController {
     }
 
     @FXML
-    private void onDeleteButtonClicked() {
+    public void onDeleteButtonClicked() {
         if (book != null) {
             try {
                 // only delete the book if it's in the database
@@ -149,5 +150,4 @@ public class LibraryBookController {
             }
         }
     }
-
 }
